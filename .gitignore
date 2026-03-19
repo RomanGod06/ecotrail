@@ -1,0 +1,36 @@
+# Environment variables — NEVER commit this
+.env
+
+# Python virtual environments
+venv/
+*/venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ML model cache (huge files, no need to commit)
+*.bin
+*.safetensors
+ml/models/
+rag/chroma_db/
+.cache/
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Uploaded images (user data, not code)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE folders
+.vscode/
+.idea/
