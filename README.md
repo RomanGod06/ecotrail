@@ -14,37 +14,37 @@ Hackathon project — Tourism & Environmental Safety
 ## Setup
 
 ### 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/ecotrail.git
-cd ecotrail
+- git clone https://github.com/YOUR_USERNAME/ecotrail.git
+- cd ecotrail
 
 ### 2. Set up environment variables
-Copy .env.example to .env and fill in your API keys
+- Copy .env.example to .env and fill in your API keys
 
 ### 3. Frontend
-cd frontend
-npm install
-npm run dev
-Runs on http://localhost:5173
+- cd frontend
+- npm install
+- npm run dev
+- Runs on http://localhost:5173
 
 ### 4. Backend
-cd backend
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-Runs on http://localhost:8000
+- cd backend
+- python -m venv venv
+- venv\Scripts\activate
+- pip install -r requirements.txt
+- uvicorn main:app --reload --port 8000
+- Runs on http://localhost:8000
 
 ### 5. ML
-cd ml
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
+- cd ml
+- python -m venv venv
+- venv\Scripts\activate
+- pip install -r requirements.txt
 
 ### 6. RAG
-cd rag
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
+- cd rag
+- python -m venv venv
+- venv\Scripts\activate
+- pip install -r requirements.txt
 
 ## Ports
 - Frontend: 5173
