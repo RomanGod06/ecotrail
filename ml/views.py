@@ -21,6 +21,5 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, get_object_or_404
 from .models import Result
 
-
 def home(request) :
-    return render(request,"chatbot/home.html")
+    return render(request,"ml/home.html")
