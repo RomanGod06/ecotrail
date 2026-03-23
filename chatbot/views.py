@@ -19,7 +19,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 import json
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, get_object_or_404
-from .models import Result
 
 
 def home(request) :
