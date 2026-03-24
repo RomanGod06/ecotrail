@@ -24,3 +24,14 @@ from django.shortcuts import render, get_object_or_404
 
 def home (request) :
     return render(request,"main/home.html")
+
+def about (request) :
+    return render(request,"main/about.html")
+def ranking (request) :
+    return render(request,"main/ranking.html")
+def working (request) :
+    return render(request,"main/working.html")
+def sos (request) :
+    return render(request,"main/sos.html")
+def impact (request) :
+    return render(request,"main/impact.html")

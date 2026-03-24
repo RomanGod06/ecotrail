@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-key-for-dev-mode-only')
 DEBUG = 'RENDER' not in os.environ
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','10.214.94.111']
 
 
 """
@@ -36,8 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'chatbot',
-    'ml',
+    
 ]
 
 MIDDLEWARE = [
