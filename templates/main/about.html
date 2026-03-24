@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}About | EcoTrail{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── CTA ── */
+#cta{padding:180px clamp(16px,5vw,80px);text-align:center;position:relative;z-index:1;overflow:hidden; background: var(--cream); min-height: 70vh;}
+#cta::before{content:'';position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(61,122,82,.09),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.cta-h{font-size:clamp(36px,6.5vw,72px);font-weight:900;color:#0f2318;letter-spacing:-2.5px;line-height:1.05;margin-bottom:20px}
+.cta-h em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--green-light)}
+.cta-p{font-size:16px;color:var(--stone);margin-bottom:40px;font-weight:300;line-height:1.75}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{font-family:'Cabinet Grotesk',sans-serif;font-size:15px;font-weight:700;color:#0f2318;background:#7aad8f;border:none;padding:14px 36px;border-radius:10px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:8px; text-decoration:none;}
+.btn-primary:hover{background:#b8dfc8;transform:translateY(-3px);box-shadow:0 12px 32px rgba(122,173,143,.4)}
+.btn-ghost{font-family:'Cabinet Grotesk',sans-serif;font-size:15px;font-weight:600;background:transparent;border:1px solid #1a3a2a;color:#1a3a2a;padding:14px 28px;border-radius:10px;cursor:pointer;transition:all .2s; text-decoration:none;}
+.btn-ghost:hover{background:rgba(26,58,42,.05);}
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="cta">
+  <div class="cta-inner">
+    <div class="reveal">
+      <h2 class="cta-h">Every tourist can be a <em>guardian.</em></h2>
+      <p class="cta-p">Join the movement to protect Himachal Pradesh's natural beauty — one photo, one report, one conversation at a time.</p>
+      <div class="cta-btns">
+        <a href="{% url 'home' %}" class="btn-primary">Start exploring →</a>
+        <a href="https://github.com/RomanGod06/ecotrail" target="_blank" class="btn-ghost">View on GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} 

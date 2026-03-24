@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}How It Works | EcoTrail{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── HOW IT WORKS ── */
+#how { padding: 140px clamp(16px, 5vw, 80px) 100px; background: var(--light-sage); border-bottom: 1px solid var(--border); position: relative; z-index: 1; overflow: hidden; }
+#how::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(45,90,61,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(45,90,61,0.06) 1px, transparent 1px);
+  background-size: 40px 40px; opacity: 0; transition: opacity .5s ease; pointer-events: none; z-index: 0;
+}
+#how:hover::before { opacity: 1; }
+.how-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+.step-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 36px 32px; transition: all .3s; cursor: default; position: relative; z-index: 2; }
+.step-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.08); }
+.step-n { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 64px; font-weight: 700; color: rgba(45,90,61,.1); line-height: 1; margin-bottom: 16px; letter-spacing: -2px; }
+.step-title { font-size: 20px; font-weight: 800; color: #0f2318; margin-bottom: 10px; letter-spacing: -.3px; }
+.step-desc { font-size: 14px; color: var(--stone); line-height: 1.7; font-weight: 400; }
+
+/* ── FEATURE CARDS SECTION ── */
+#feat-cards { padding: 100px clamp(16px, 5vw, 80px); position: relative; z-index: 1; background: #fff; }
+.feat-cards-inner { max-width: 1100px; margin: 0 auto; }
+.feat-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 52px; }
+.fc { background: var(--warm); border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; position: relative; overflow: hidden; cursor: default; transition: transform .3s, box-shadow .3s, background .3s, border-color .3s; }
+.fc::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(45,138,78,.09) 0%, rgba(61,122,82,.05) 100%); opacity: 0; transition: opacity .3s; pointer-events: none; border-radius: inherit; }
+.fc:hover { transform: translateY(-8px); box-shadow: 0 20px 48px rgba(26,58,42,.13), 0 4px 12px rgba(0,0,0,.06); background: #fff; border-color: rgba(45,138,78,.35); }
+.fc:hover::before { opacity: 1; }
+.fc:hover .fc-icon-wrap { background: var(--green); border-color: var(--green); }
+.fc:hover .fc-icon-wrap svg { stroke: #fff; }
+.fc:hover .fc-title { color: var(--green); }
+.fc:hover .fc-tag { color: var(--green-light); }
+.fc > * { position: relative; z-index: 1; }
+.fc-icon-wrap { width: 44px; height: 44px; background: rgba(45,138,78,.08); border: 1px solid rgba(45,138,78,.18); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; transition: background .3s, border-color .3s; }
+.fc-icon-wrap svg { width: 20px; height: 20px; stroke: var(--green-light); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke .3s; }
+.fc-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sage); margin-bottom: 8px; transition: color .3s; }
+.fc-title { font-size: 17px; font-weight: 800; color: #0f2318; margin-bottom: 8px; letter-spacing: -.3px; transition: color .3s; }
+.fc-desc { font-size: 13px; color: var(--stone); line-height: 1.65; font-weight: 400; }
+.fc-badge { display: inline-flex; align-items: center; gap: 5px; margin-top: 16px; font-size: 11px; font-weight: 600; color: var(--green-light); background: rgba(45,138,78,.08); border: 1px solid rgba(45,138,78,.18); padding: 4px 10px; border-radius: 20px; }
+.fc-badge-dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+
+.section-tag { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green-light); margin-bottom: 14px; }
+.section-tag::before { content: ''; width: 28px; height: 1.5px; background: var(--green-light); border-radius: 1px; }
+.section-h { font-size: clamp(30px, 5vw, 56px); font-weight: 900; color: #0f2318; letter-spacing: -2px; line-height: 1.1; }
+.section-h em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--green-light); }
+
+/* FIXED RESPONSIVE GRIDS */
+@media(max-width: 860px) {
+  .steps-grid { grid-template-columns: 1fr; }
+  .feat-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media(max-width: 560px) {
+  .steps-grid { gap: 14px; }
+  .feat-cards-grid { grid-template-columns: 1fr; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="how">
+  <div class="how-inner">
+    <div class="section-tag reveal">How it works</div>
+    <h2 class="section-h reveal">Three steps.<br><em>Zero friction.</em></h2>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-n">01</div>
+        <div class="step-title">Check before you go</div>
+        <p class="step-desc">Open EcoTrail and search your destination. See real-time AQI, crowd levels, and community hazard reports all in one view.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.15s">
+        <div class="step-n">02</div>
+        <div class="step-title">Report what you see</div>
+        <p class="step-desc">Spot pollution on the trail? Upload a photo. AI classifies it and the hazard appears on the live map within seconds.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.3s">
+        <div class="step-n">03</div>
+        <div class="step-title">Ask the chatbot</div>
+        <p class="step-desc">Questions about eco-guidelines, safe alternatives, or local conditions? EcoBot gives instant answers from a verified knowledge base.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="feat-cards">
+  <div class="feat-cards-inner">
+    <div class="section-tag reveal">Platform features</div>
+    <h2 class="section-h reveal">Everything you need.<br><em>All in one place.</em></h2>
+    <p class="section-p reveal" style="margin-bottom:0">Seven AI-powered tools working together to make every trip to HP safer, cleaner, and more informed.</p>
+
+    <div class="feat-cards-grid">
+      <div class="fc reveal">
+        <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg></div>
+        <div class="fc-tag">Live data</div>
+        <div class="fc-title">AQI safety map</div>
+        <p class="fc-desc">Color-coded markers for 50+ HP tourist spots. Air quality, crowd density, and hazard status updated every hour.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Updated hourly</div>
+      </div>
+      <div class="fc reveal" style="transition-delay:.07s">
+        <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="fc-tag">AI powered</div>
+        <div class="fc-title">Waste photo detector</div>
+        <p class="fc-desc">Upload a photo from any trail. Our ML vision model classifies pollution and flags the spot on the shared map instantly.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>ML · ViT model</div>
+      </div>
+      <div class="fc reveal" style="transition-delay:.14s">
+        <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="fc-tag">RAG chatbot</div>
+        <div class="fc-title">EcoBot assistant</div>
+        <p class="fc-desc">Ask about safe routes, eco-guidelines, or local conditions. Powered by Gemini AI with a verified local knowledge base.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Gemini · Pinecone</div>
+      </div>
+      <div class="fc reveal" style="transition-delay:.21s">
+        <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="fc-tag">Dashboard</div>
+        <div class="fc-title">Authority alerts</div>
+        <p class="fc-desc">Government officials see live hazard trends, crowd density, and pollution hotspots. Data that drives real-world action.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Real-time</div>
+      </div>
+      <div class="fc reveal" style="transition-delay:.28s">
+        <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+        <div class="fc-tag">Gamified</div>
+        <div class="fc-title">Eco leaderboard</div>
+        <p class="fc-desc">Tourists earn points for every hazard reported. Top eco-guardians are publicly recognized, turning concern into action.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Community driven</div>
+      </div>
+      <div class="fc reveal" style="transition-delay:.35s">
+        <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="fc-tag">Smart</div>
+        <div class="fc-title">Best time to visit</div>
+        <p class="fc-desc">Crowd and AQI trend analysis tells you the cleanest, quietest time to visit any spot — plan smarter, travel better.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Trend analysis</div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} 

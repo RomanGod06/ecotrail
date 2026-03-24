@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Impact | EcoTrail{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── STATS ── */
+#stats-page { padding: 160px clamp(16px, 5vw, 80px) 100px; background: var(--warm); min-height: 70vh;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.05);max-width:960px;margin:0 auto 80px}
+.stat-cell{padding:36px 24px;text-align:center;border-right:1px solid var(--border);background:#fff;transition:transform .3s,box-shadow .3s;position:relative;z-index:1}
+.stat-cell:last-child{border-right:none}
+.stat-cell::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(45,138,78,.07),rgba(61,122,82,.04));opacity:0;transition:opacity .3s;pointer-events:none;z-index:-1}
+.stat-cell:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(45,90,61,.12);z-index:10;border-radius:8px;}
+.stat-cell:hover::before{opacity:1}
+.stat-cell:hover .stat-num{color:var(--green-light)}
+.stat-cell>*{position:relative;z-index:2}
+.stat-num{font-size:clamp(32px,5vw,56px);font-weight:900;color:var(--green);letter-spacing:-2px;line-height:1;margin-bottom:12px;font-variant-numeric:tabular-nums;transition:color .3s}
+.stat-lbl{font-size:14px;color:var(--stone);font-weight:500;line-height:1.4}
+
+.section-tag{display:flex;align-items:center;justify-content:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green-light);margin-bottom:14px}
+.section-tag::before{content:'';width:28px;height:1.5px;background:var(--green-light);border-radius:1px}
+.section-h{font-size:clamp(30px,5vw,56px);font-weight:900;color:#0f2318;letter-spacing:-2px;line-height:1.1;text-align:center;margin-bottom:40px;}
+.section-h em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--green-light)}
+
+/* ── MARQUEE ── */
+#marquee{background:var(--green);padding:24px 0;overflow:hidden;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.marquee-track{display:flex;width:max-content;animation:marquee 22s linear infinite}
+.marquee-item{display:inline-flex;align-items:center;gap:18px;padding:0 28px;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.7);white-space:nowrap}
+.marquee-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--sage);display:inline-block}
+
+@media(max-width:860px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat-cell:nth-child(2){border-right:none}
+  .stat-cell:nth-child(3){border-top:1px solid var(--border)}
+  .stat-cell:nth-child(4){border-top:1px solid var(--border);border-right:none}
+}
+@media(max-width:560px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat-num{font-size:32px;}
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="stats-page">
+  <div class="reveal">
+    <div class="section-tag">Platform Impact</div>
+    <h2 class="section-h">The numbers that<br><em>matter.</em></h2>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-cell reveal"><div class="stat-num" data-target="1.7" data-suffix="Cr">0Cr</div><div class="stat-lbl">tourists visit HP annually</div></div>
+    <div class="stat-cell reveal" style="transition-delay:.1s"><div class="stat-num" data-target="234" data-suffix="">0</div><div class="stat-lbl">spots flagged as needing attention</div></div>
+    <div class="stat-cell reveal" style="transition-delay:.2s"><div class="stat-num" data-target="30" data-prefix="<" data-suffix="s">0s</div><div class="stat-lbl">to flag and share any hazard</div></div>
+    <div class="stat-cell reveal" style="transition-delay:.3s"><div class="stat-num" data-target="0" data-suffix="₹">0₹</div><div class="stat-lbl">cost to use the platform</div></div>
+  </div>
+</div>
+
+<div id="marquee">
+  <div class="marquee-track" id="mTrack"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+/* ── Slot counters ── */
+function animateCounter(el){
+  const target=parseFloat(el.dataset.target);
+  const suffix=el.dataset.suffix||'';
+  const prefix=el.dataset.prefix||'';
+  const dur=1800,steps=55;
+  let i=0;
+  const t=setInterval(()=>{
+    i++;
+    const ease=1-Math.pow(1-i/steps,3);
+    const cur=target*ease;
+    el.textContent=prefix+(Number.isInteger(target)?Math.round(cur):cur.toFixed(1))+suffix;
+    if(i>=steps){clearInterval(t);el.textContent=prefix+target+suffix;}
+  },dur/steps);
+}
+const statIo=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){animateCounter(e.target);statIo.unobserve(e.target);}
+}),{threshold:.4});
+document.querySelectorAll('.stat-num[data-target]').forEach(el=>statIo.observe(el));
+
+/* Marquee Clone Logic */
+const items=['Eco-conscious tourism','Protect HP','Real-time AQI','AI waste detection','Community reporting','Gemini-powered AI','Leave no trace','Sustainable travel','Smart eco-guide','Open source'];
+const doubled=[...items,...items];
+const mt=document.getElementById('mTrack');
+doubled.forEach(t=>{const s=document.createElement('span');s.className='marquee-item';s.textContent=t;mt.appendChild(s);});
+</script>
+{% endblock %} 
