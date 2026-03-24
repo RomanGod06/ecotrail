@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoTrail — Travel Smart. Protect What Matters.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link href= "static/styles.css" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cabinet Grotesk',sans-serif;background:#f5f2ec;color:#1c1c1c;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+:root{--green:#1a3a2a;--green-mid:#2d5a3d;--green-light:#3d7a52;--sage:#7aad8f;--mint:#b8dfc8;--cream:#f7f4ef;--warm:#f5f2ec;--stone:#6b7280;--border:rgba(0,0,0,0.09);--chakra-blue:#0044cc;--chakra-dark:#002266;--light-sage:#eaf0ec;}
+
+/* GRID BG */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(45,90,61,0.055) 1px,transparent 1px),linear-gradient(90deg,rgba(45,90,61,0.055) 1px,transparent 1px);
+  background-size:52px 52px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--green-light);border-radius:2px}
+
+/* ── NAV ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(16px,5vw,72px);
+  transition:backvar(--green),border .4s,box-shadow .4s;
+  padding:0 (5px 12px 7px rgba);
+
+}
+
+
+
+#nav.solid{background:rgba(245,242,236,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);box-shadow:0px 10px 7px rgba(0, 0, 0, 0.303)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-leaf{width:32px;height:32px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-leaf svg{transform:rotate(45deg)}
+.logo-text{font-size:19px;font-weight:800;color:var(--green);letter-spacing:-.5px}
+.logo-text span{color:var(--green-light)}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--stone);text-decoration:none;padding:7px 14px;border-radius:20px;transition:background .2s,color .2s}
+.nav-links a:hover{background:rgba(0,0,0,.06);color:var(--green)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.live-pill{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#2d8a4e;background:rgba(45,138,78,.1);border:1px solid rgba(45,138,78,.25);padding:5px 12px;border-radius:20px}
+.dot{width:6px;height:6px;background:#2d8a4e;border-radius:50%;animation:pulse 2s infinite}
+.btn-nav{font-family:'Cabinet Grotesk',sans-serif;font-size:13px;font-weight:700;color:#fff;background:var(--green);border:none;padding:9px 20px;border-radius:8px;cursor:pointer;transition:all .2s}
+.btn-nav:hover{background:var(--green-mid);transform:translateY(-1px)}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.ham span{width:22px;height:2px;background:var(--green);border-radius:1px;display:block;transition:all .3s}
+#mobile-nav{display:none;position:fixed;top:68px;left:0;right:0;background:var(--warm);border-bottom:1px solid var(--border);padding:16px 5%;flex-direction:column;gap:4px;z-index:999}
+#mobile-nav.open{display:flex}
+#mobile-nav a{font-size:15px;font-weight:500;color:var(--green);text-decoration:none;padding:12px 16px;border-radius:8px}
+#mobile-nav a:hover{background:var(--cream)}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:0 clamp(16px,5vw,80px);z-index:1;overflow:hidden;background:#0a1a10}
+#hero::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(122,173,143,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(122,173,143,0.07) 1px,transparent 1px);
+  background-size:48px 48px;z-index:0}
+.hero-bg-img{position:absolute;inset:-5%;width:110%;height:110%;
+  background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop');
+  background-size:cover;background-position:center;
+  filter:brightness(0.18) saturate(1.3);z-index:0}
+.hero-aura{position:absolute;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(61,122,82,.18),transparent 70%);
+  bottom:-100px;right:10%;pointer-events:none;z-index:0;
+  animation:auraFloat 6s ease-in-out infinite alternate}
+@keyframes auraFloat{0%{transform:scale(.95);opacity:.7}100%{transform:scale(1.05);opacity:1}}
+/* LHS */
+.hero-lhs{width:50%;padding-right:4%;position:relative;z-index:2;animation:fadeUp .8s .1s both}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#7aad8f;border:1px solid rgba(122,173,143,.3);background:rgba(122,173,143,.08);padding:7px 18px;border-radius:20px;margin-bottom:28px}
+.hero-h1{font-size:clamp(40px,5.5vw,80px);font-weight:900;line-height:1.0;letter-spacing:-2.5px;color:#f0fdf4;margin-bottom:22px}
+.hero-h1 em{font-family:'Instrument Serif',serif;font-style:italic;color:#7aad8f}
+.hero-sub{font-size:clamp(14px,1.5vw,17px);font-weight:300;color:rgba(255,255,255,.6);line-height:1.75;max-width:460px;margin-bottom:36px}
+.hero-btns{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.btn-primary{font-family:'Cabinet Grotesk',sans-serif;font-size:15px;font-weight:700;color:#0f2318;background:#7aad8f;border:none;padding:14px 36px;border-radius:10px;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:8px}
+.btn-primary:hover{background:#b8dfc8;transform:translateY(-3px);box-shadow:0 12px 32px rgba(122,173,143,.4)}
+.btn-ghost{font-family:'Cabinet Grotesk',sans-serif;font-size:15px;font-weight:600;color:rgba(255,255,255,.8);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);padding:14px 28px;border-radius:10px;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px)}
+.btn-ghost:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4)}
+/* RHS wheel */
+.hero-rhs{width:50%;display:flex;justify-content:center;align-items:center;position:relative;z-index:2;min-height:100vh}
+.wheel-msg{position:absolute;top:18%;right:-20px;width:240px;text-align:right;z-index:10}
+.wheel-msg-text{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.25rem;line-height:1.45;color:#fff;text-shadow:0 2px 20px rgba(122,173,143,.7);opacity:0;transform:translateX(16px);transition:opacity .9s ease,transform .9s ease}
+.wheel-msg-text.show{opacity:1;transform:translateX(0)}
+/* Blended aura transitioning from blue to green */
+.wheel-aura{position:absolute;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(ellipse, rgba(0, 68, 204, 0.25) 0%, rgba(10, 50, 30, 0.4) 50%, transparent 72%);
+  filter:blur(48px);animation:auraFloat 5s ease-in-out infinite alternate;z-index:0}
+
+/* Ashok Chakra Design */
+.chakra{position:relative;width:320px;height:320px;
+  border:7px solid var(--chakra-blue);
+  border-radius:50%;z-index:1;
+  background:repeating-conic-gradient(from 0deg, rgba(0,34,102,.1) 0deg, rgba(0,34,102,.1) 13.5deg, var(--chakra-blue) 13.5deg, var(--chakra-blue) 15deg);
+  box-shadow:inset 0 0 60px rgba(0,68,204,.3), 0 0 50px rgba(0,68,204,.2)}
+/* centre hub */
+.chakra::before{content:'';position:absolute;top:50%;left:50%;width:24px;height:24px;
+  background:var(--chakra-blue);border-radius:50%;border:3px solid rgba(255,255,255,.8);
+  transform:translate(-50%,-50%);z-index:5}
+
+.wheel-item{position:absolute;top:50%;left:50%;width:76px;height:76px;margin:-38px 0 0 -38px;
+  border-radius:50%;border:3px solid rgba(255,255,255,.85);
+  box-shadow:0 4px 14px rgba(0,0,0,.55);overflow:hidden;
+  transition:transform 1.5s cubic-bezier(.25,1,.5,1),box-shadow 1.5s ease;z-index:2}
+.wheel-item img{width:100%;height:100%;object-fit:cover}
+.wheel-item.active{box-shadow:0 0 30px rgba(100,160,255,.8),0 0 60px rgba(0,68,204,.5);border-color:#fff;z-index:10}
+/* scroll down hint */
+.scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp 1s 1.5s both}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,rgba(122,173,143,.6));animation:scrollPulse 2s ease-in-out infinite}
+.scroll-txt{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35)}
+@keyframes scrollPulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ── NAV override for dark hero ── */
+#nav:not(.solid) .logo-text{color:#f0fdf4}
+#nav:not(.solid) .logo-text span{color:#7aad8f}
+#nav:not(.solid) .logo-leaf{background:#7aad8f}
+#nav:not(.solid) .logo-leaf svg{fill:#0f2318}
+#nav:not(.solid) .nav-links a{color:rgba(255,255,255,.6)}
+#nav:not(.solid) .nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+#nav:not(.solid) .btn-nav{background:#7aad8f;color:#0f2318}
+#nav:not(.solid) .ham span{background:#f0fdf4}
+
+/* ── STATS ── */
+#stats{padding:80px clamp(16px,5vw,80px) 40px;position:relative;z-index:5; background: var(--warm);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.05);max-width:960px;margin:0 auto}
+.stat-cell{padding:28px 24px;text-align:center;border-right:1px solid var(--border);background:#fff;transition:transform .3s,box-shadow .3s;position:relative;z-index:1}
+.stat-cell:last-child{border-right:none}
+.stat-cell::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(45,138,78,.07),rgba(61,122,82,.04));opacity:0;transition:opacity .3s;pointer-events:none;z-index:-1}
+.stat-cell:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(45,90,61,.12);z-index:10;border-radius:8px;}
+.stat-cell:hover::before{opacity:1}
+.stat-cell:hover .stat-num{color:var(--green-light)}
+.stat-cell>*{position:relative;z-index:2}
+.stat-num{font-size:clamp(26px,4vw,42px);font-weight:900;color:var(--green);letter-spacing:-2px;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums;transition:color .3s}
+.stat-lbl{font-size:12px;color:var(--stone);font-weight:500;line-height:1.4}
+
+/* ── WHY ── */
+#why{padding:80px 0 100px;position:relative;z-index:1;overflow:hidden; background: var(--warm);}
+#why::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(61,122,82,.03),transparent);pointer-events:none}
+.why-head{padding:0 clamp(16px,5vw,80px);margin-bottom:20px}
+.why-top{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;max-width:1100px;margin:0 auto}
+.section-tag{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green-light);margin-bottom:14px}
+.section-tag::before{content:'';width:28px;height:1.5px;background:var(--green-light);border-radius:1px}
+.section-h{font-size:clamp(30px,5vw,56px);font-weight:900;color:#0f2318;letter-spacing:-2px;line-height:1.1}
+.section-h em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--green-light)}
+
+.cards-track{
+  display:flex;gap:24px;overflow-x:auto;
+  padding:24px clamp(16px,5vw,80px) 48px;
+  scrollbar-width:none; scroll-behavior:smooth;
+  user-select:none; position:relative;
+}
+.cards-track::-webkit-scrollbar{display:none}
+.why-card{
+  min-width: max(280px, 43vw); width: max(280px, 43vw); 
+  background:#fff;border:1px solid var(--border);border-radius:20px;
+  padding:40px 36px;flex-shrink:0;cursor:grab;
+  transition:transform .3s cubic-bezier(.34,1.2,.64,1), background .3s, box-shadow .3s, border-color .3s;
+  position:relative; user-select:none;
+}
+.why-card:active {cursor:grabbing;}
+.why-card:hover{background:var(--green);border-color:var(--green);transform:translateY(-12px) scale(1.02);box-shadow:0 24px 56px rgba(26,58,42,.35);z-index:10;}
+
+.card-icon{font-size:36px;margin-bottom:20px}
+.card-title{font-size:22px;font-weight:800;color:#0f2318;margin-bottom:12px;letter-spacing:-.5px;line-height:1.2;transition:color .3s;}
+.why-card:hover .card-title{color:#fff}
+.card-desc{font-size:14px;color:var(--stone);line-height:1.7;font-weight:400;transition:color .3s;}
+.why-card:hover .card-desc{color:rgba(255,255,255,.65)}
+.card-link{margin-top:28px;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--green-light);transition:color .3s;}
+.why-card:hover .card-link{color:#86efac}
+
+.why-dots {
+  display:flex; justify-content:center; align-items:center; gap:2px;
+  margin-top:0px; user-select:none; touch-action:none;
+}
+.dot-wrapper {
+  padding:16px 8px;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.why-dot {
+  width:8px; height:8px; border-radius:4px; background:rgba(0,0,0,.15);
+  transition:all .3s; pointer-events:none; 
+}
+.why-dot.active {
+  background:var(--green); width:24px;
+}
+
+/* ── HOW ── */
+#how{padding:100px clamp(16px,5vw,80px);background:var(--light-sage);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1; overflow:hidden;}
+#how::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(45,90,61,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(45,90,61,0.06) 1px,transparent 1px);
+  background-size:40px 40px;
+  opacity:0;transition:opacity .5s ease;pointer-events:none;z-index:0;
+}
+#how:hover::before{opacity:1;}
+
+.how-inner{max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+.step-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:36px 32px;transition:all .3s;cursor:default;position:relative;z-index:2;}
+.step-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.08);}
+
+.step-n{font-family:'Instrument Serif',serif;font-style:italic;font-size:64px;font-weight:700;color:rgba(45,90,61,.1);line-height:1;margin-bottom:16px;letter-spacing:-2px}
+.step-title{font-size:20px;font-weight:800;color:#0f2318;margin-bottom:10px;letter-spacing:-.3px}
+.step-desc{font-size:14px;color:var(--stone);line-height:1.7;font-weight:400}
+
+/* ── FEATURE CARDS SECTION ── */
+#feat-cards{padding:100px clamp(16px,5vw,80px) 100px;position:relative;z-index:1;background:#fff;border-top:1px solid var(--border)}
+.feat-cards-inner{max-width:1100px;margin:0 auto}
+.feat-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px}
+.fc{
+  background:var(--warm); border:1px solid var(--border); border-radius:16px;padding:28px 24px;
+  position:relative;overflow:hidden; cursor:default; transition:transform .3s cubic-bezier(.34,1.2,.64,1),box-shadow .3s,background .3s,border-color .3s;
+}
+.fc::before{
+  content:'';position:absolute;inset:0; background:linear-gradient(135deg,rgba(45,138,78,.09) 0%,rgba(61,122,82,.05) 100%);
+  opacity:0;transition:opacity .3s;pointer-events:none;border-radius:inherit;
+}
+.fc:hover{
+  transform:translateY(-8px); box-shadow:0 20px 48px rgba(26,58,42,.13),0 4px 12px rgba(0,0,0,.06);
+  background:#fff; border-color:rgba(45,138,78,.35);
+}
+.fc:hover::before{opacity:1}
+.fc:hover .fc-icon-wrap{background:var(--green);border-color:var(--green)}
+.fc:hover .fc-icon-wrap svg{stroke:#fff}
+.fc:hover .fc-title{color:var(--green)}
+.fc:hover .fc-tag{color:var(--green-light)}
+.fc>*{position:relative;z-index:1}
+.fc-icon-wrap{
+  width:44px;height:44px; background:rgba(45,138,78,.08); border:1px solid rgba(45,138,78,.18);
+  border-radius:10px; display:flex;align-items:center;justify-content:center;
+  margin-bottom:18px; transition:background .3s,border-color .3s;
+}
+.fc-icon-wrap svg{width:20px;height:20px;stroke:var(--green-light);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
+.fc-tag{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--sage);margin-bottom:8px;transition:color .3s}
+.fc-title{font-size:17px;font-weight:800;color:#0f2318;margin-bottom:8px;letter-spacing:-.3px;transition:color .3s}
+.fc-desc{font-size:13px;color:var(--stone);line-height:1.65;font-weight:400}
+.fc-badge{display:inline-flex;align-items:center;gap:5px;margin-top:16px;font-size:11px;font-weight:600;color:var(--green-light);background:rgba(45,138,78,.08);border:1px solid rgba(45,138,78,.18);padding:4px 10px;border-radius:20px}
+.fc-badge-dot{width:5px;height:5px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite}
+
+/* ── MARQUEE ── */
+#marquee{background:var(--green);padding:18px 0;overflow:hidden;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.marquee-track{display:flex;width:max-content;animation:marquee 22s linear infinite}
+.marquee-item{display:inline-flex;align-items:center;gap:18px;padding:0 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.7);white-space:nowrap}
+.marquee-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--sage);display:inline-block}
+
+/* ── CTA ── */
+#cta{padding:120px clamp(16px,5vw,80px);text-align:center;position:relative;z-index:1;overflow:hidden; background: var(--cream);}
+#cta::before{content:'';position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(61,122,82,.09),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.cta-h{font-size:clamp(36px,6.5vw,72px);font-weight:900;color:#0f2318;letter-spacing:-2.5px;line-height:1.05;margin-bottom:20px}
+.cta-h em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--green-light)}
+.cta-p{font-size:16px;color:var(--stone);margin-bottom:40px;font-weight:300;line-height:1.75}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ── FOOTER ── */
+footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relative;z-index:1}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto 48px}
+.foot-brand p{font-size:13px;color:rgba(255,255,255,.45);margin-top:14px;line-height:1.7;font-weight:300;max-width:250px}
+.foot-col h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:20px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.foot-col a{font-size:13px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
+.foot-col a:hover{color:#fff}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap;gap:12px;max-width:1100px;margin:0 auto}
+.foot-bottom span{font-size:12px;color:rgba(255,255,255,.28)}
+
+/* ── CHATBOT ── */
+#chat-wrap{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+#chat-panel{width:clamp(280px,90vw,340px);background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.15);overflow:hidden;display:none;transform-origin:bottom right}
+#chat-panel.open{display:block;animation:chatIn .35s cubic-bezier(.34,1.4,.64,1) both}
+.chat-hdr{background:var(--green);padding:16px 18px;display:flex;align-items:center;gap:12px}
+.chat-av{width:36px;height:36px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.chat-status{font-size:11px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:5px}
+.chat-msgs{padding:14px;max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:85%;font-size:13px;line-height:1.55;padding:9px 13px}
+.msg.bot{background:var(--cream);color:var(--green);border-radius:4px 12px 12px 12px}
+.msg.user{background:var(--green);color:#fff;align-self:flex-end;border-radius:12px 4px 12px 12px}
+.chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border)}
+.chat-input{flex:1;border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:8px 12px;font-size:13px;font-family:'Cabinet Grotesk',sans-serif;outline:none;background:var(--cream)}
+.chat-input:focus{border-color:var(--sage)}
+.chat-send{width:34px;height:34px;background:var(--green);border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#chat-fab{width:54px;height:54px;background:var(--green);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(26,58,42,.4);transition:all .25s;position:relative}
+#chat-fab:hover{transform:scale(1.07);box-shadow:0 12px 32px rgba(26,58,42,.5)}
+#chat-fab svg{transition:transform .3s}
+#chat-fab.active svg{transform:rotate(45deg)}
+.chat-badge{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#e74c3c;border:2px solid var(--warm);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:700}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.reveal.vis{opacity:1;transform:none}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes chatIn{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  #hero{flex-direction:column;padding:100px clamp(16px,5vw,40px) 60px;text-align:center}
+  .hero-lhs{width:100%;padding-right:0;margin-bottom:48px}
+  .hero-rhs{width:100%;min-height:400px}
+  .wheel-msg{right:0;top:8%;width:200px;font-size:1rem}
+  .chakra{width:260px;height:260px}
+  .hero-btns{justify-content:center}
+  .nav-links{display:none}
+  .live-pill{display:none}
+  .ham{display:flex}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat-cell:nth-child(2){border-right:none}
+  .stat-cell:nth-child(3){border-top:1px solid var(--border)}
+  .stat-cell:nth-child(4){border-top:1px solid var(--border);border-right:none}
+  .steps-grid{grid-template-columns:1fr}
+  .feat-cards-grid{grid-template-columns:1fr 1fr} /* Added Fix */
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-brand{grid-column:span 2}
+  .why-top{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:560px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .feat-cards-grid{grid-template-columns:1fr} /* Added Fix */
+  .foot-grid{grid-template-columns:1fr}
+  .foot-brand{grid-column:span 1}
+  .hero-h1{letter-spacing:-1.5px}
+  .steps-grid{gap:14px}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="logo">
+    <div class="logo-leaf">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-8 2s-2-7 5-7c-2 0-7 4-2 10z"/></svg>
+    </div>
+    <span class="logo-text">Eco<span>Trail</span></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#why">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#stats">Impact</a></li>
+    <li><a href="#cta">About</a></li>
+  </ul>
+
+  <div class="nav-r">
+    <div class="live-pill"><div class="dot"></div>Live data</div>
+    <button class="btn-nav" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">Open map →</button>
+    <button class="ham" id="hamBtn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="mobile-nav">
+  <a href="#why" onclick="toggleMenu()">Features</a>
+  <a href="#how" onclick="toggleMenu()">How it works</a>
+  <a href="#stats" onclick="toggleMenu()">Impact</a>
+  <a href="#cta" onclick="toggleMenu()">About</a>
+</div>
+
+<section id="hero">
+  <div class="hero-bg-img"></div>
+  <div class="hero-aura"></div>
+  <div class="hero-lhs">
+    <div class="hero-tag"><div class="dot" style="background:#7aad8f"></div>Code Rangers 2026 · Tourism &amp; Environmental Safety</div>
+    <h1 class="hero-h1">Rooted in nature.<br>Guided by <em>intelligence.</em></h1>
+    <p class="hero-sub">EcoTrail maps real-time pollution, crowd density, and hazard reports across Himachal Pradesh — so every journey leaves the land better than it found it.</p>
+    <div class="hero-btns">
+    <button class="btn-primary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+      Explore live map
+    </button>
+    </div>
+  </div>
+
+  <div class="hero-rhs">
+    <div class="wheel-msg"><div class="wheel-msg-text show" id="wheelMsg">Every journey is a chance to protect what we love.</div></div>
+    <div class="wheel-aura"></div>
+    <div class="chakra" id="wheelContainer"></div>
+  </div>
+
+  <div class="scroll-hint">
+    <span class="scroll-txt">Scroll to explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div id="stats">
+  <div class="stats-grid">
+    <div class="stat-cell reveal"><div class="stat-num" data-target="1.7" data-suffix="Cr">0Cr</div><div class="stat-lbl">tourists visit HP annually</div></div>
+    <div class="stat-cell reveal" style="transition-delay:.1s"><div class="stat-num" data-target="234" data-suffix="">0</div><div class="stat-lbl">spots flagged as needing attention</div></div>
+    <div class="stat-cell reveal" style="transition-delay:.2s"><div class="stat-num" data-target="30" data-prefix="<" data-suffix="s">0s</div><div class="stat-lbl">to flag and share any hazard</div></div>
+    <div class="stat-cell reveal" style="transition-delay:.3s"><div class="stat-num" data-target="0" data-suffix="₹">0₹</div><div class="stat-lbl">cost to use the platform</div></div>
+  </div>
+</div>
+
+<section id="why">
+  <div class="why-head">
+    <div class="why-top">
+      <div>
+        <div class="section-tag reveal">Why EcoTrail</div>
+        <h2 class="section-h reveal">Built for the<br><em>conscious traveller.</em></h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="cards-track" id="cardsTrack">
+    <div class="why-card">
+      <div class="card-icon">🗺️</div>
+      <div class="card-title">Live AQI safety map</div>
+      <p class="card-desc">Real-time air quality and safety for 50+ tourist spots across HP. Color-coded markers updated every hour via OpenWeatherMap.</p>
+      <div class="card-link">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="why-card">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">AI waste detector</div>
+      <p class="card-desc">Upload a photo from any trail. Our vision model classifies pollution and flags the spot on the shared map within seconds.</p>
+      <div class="card-link">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="why-card">
+      <div class="card-icon">💬</div>
+      <div class="card-title">Eco chatbot</div>
+      <p class="card-desc">Powered by Gemini AI with a RAG knowledge base. Ask about safe routes, eco-guidelines, and local spot conditions.</p>
+      <div class="card-link">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="why-card">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Authority dashboard</div>
+      <p class="card-desc">Government officials see live hazard trends, crowd density, and pollution reports. Data that drives real action.</p>
+      <div class="card-link">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="why-card">
+      <div class="card-icon">🏆</div>
+      <div class="card-title">Eco leaderboard</div>
+      <p class="card-desc">Tourists earn points for every hazard reported. Top eco-guardians are publicly recognized, turning concern into action.</p>
+      <div class="card-link">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="why-card">
+      <div class="card-icon">📱</div>
+      <div class="card-title">Works everywhere</div>
+      <p class="card-desc">Fully responsive on any phone, tablet, or desktop. No installation required — just open the browser and go.</p>
+      <div class="card-link">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="why-card">
+      <div class="card-icon">🧭</div>
+      <div class="card-title">Smart Route Planner</div>
+      <p class="card-desc">Avoid heavily congested or polluted paths. Our algorithm dynamically suggests the cleanest routes for your trek.</p>
+      <div class="card-link">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+    <div class="why-card">
+      <div class="card-icon">🚨</div>
+      <div class="card-title">Emergency SOS</div>
+      <p class="card-desc">Instantly ping nearby rangers or authorities with your exact GPS coordinates in case of sudden weather changes or hazards.</p>
+      <div class="card-link">Learn more <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </div>
+  </div>
+  
+  <div class="why-dots" id="whyDots"></div>
+</section>
+
+<section id="how">
+  <div class="how-inner">
+    <div class="section-tag reveal">How it works</div>
+    <h2 class="section-h reveal">Three steps.<br><em>Zero friction.</em></h2>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-n">01</div>
+        <div class="step-title">Check before you go</div>
+        <p class="step-desc">Open EcoTrail and search your destination. See real-time AQI, crowd levels, and community hazard reports all in one view.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.15s">
+        <div class="step-n">02</div>
+        <div class="step-title">Report what you see</div>
+        <p class="step-desc">Spot pollution on the trail? Upload a photo. AI classifies it and the hazard appears on the live map within seconds.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.3s">
+        <div class="step-n">03</div>
+        <div class="step-title">Ask the chatbot</div>
+        <p class="step-desc">Questions about eco-guidelines, safe alternatives, or local conditions? EcoBot gives instant answers from a verified knowledge base.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="feat-cards">
+  <div class="feat-cards-inner">
+    <div class="section-tag reveal">Platform features</div>
+    <h2 class="section-h reveal">Everything you need.<br><em>All in one place.</em></h2>
+    <p class="section-p reveal" style="margin-bottom:0">Seven AI-powered tools working together to make every trip to HP safer, cleaner, and more informed.</p>
+
+    <div class="feat-cards-grid">
+
+      <div class="fc reveal">
+        <div class="fc-icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+        </div>
+        <div class="fc-tag">Live data</div>
+        <div class="fc-title">AQI safety map</div>
+        <p class="fc-desc">Color-coded markers for 50+ HP tourist spots. Air quality, crowd density, and hazard status updated every hour.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Updated hourly</div>
+      </div>
+
+      <div class="fc reveal" style="transition-delay:.07s">
+        <div class="fc-icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="fc-tag">AI powered</div>
+        <div class="fc-title">Waste photo detector</div>
+        <p class="fc-desc">Upload a photo from any trail. Our ML vision model classifies pollution and flags the spot on the shared map instantly.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>ML · ViT model</div>
+      </div>
+
+      <div class="fc reveal" style="transition-delay:.14s">
+        <div class="fc-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="fc-tag">RAG chatbot</div>
+        <div class="fc-title">EcoBot assistant</div>
+        <p class="fc-desc">Ask about safe routes, eco-guidelines, or local conditions. Powered by Gemini AI with a verified local knowledge base.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Gemini · Pinecone</div>
+      </div>
+
+      <div class="fc reveal" style="transition-delay:.21s">
+        <div class="fc-icon-wrap">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="fc-tag">Dashboard</div>
+        <div class="fc-title">Authority alerts</div>
+        <p class="fc-desc">Government officials see live hazard trends, crowd density, and pollution hotspots. Data that drives real-world action.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Real-time</div>
+      </div>
+
+      <div class="fc reveal" style="transition-delay:.28s">
+        <div class="fc-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        </div>
+        <div class="fc-tag">Gamified</div>
+        <div class="fc-title">Eco leaderboard</div>
+        <p class="fc-desc">Tourists earn points for every hazard reported. Top eco-guardians are publicly recognized, turning concern into action.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Community driven</div>
+      </div>
+
+      <div class="fc reveal" style="transition-delay:.35s">
+        <div class="fc-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="fc-tag">Smart</div>
+        <div class="fc-title">Best time to visit</div>
+        <p class="fc-desc">Crowd and AQI trend analysis tells you the cleanest, quietest time to visit any spot — plan smarter, travel better.</p>
+        <div class="fc-badge"><div class="fc-badge-dot"></div>Trend analysis</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div id="marquee">
+  <div class="marquee-track" id="mTrack"></div>
+</div>
+
+<section id="cta">
+  <div class="cta-inner">
+    <div class="reveal">
+      <h2 class="cta-h">Every tourist can be a <em>guardian.</em></h2>
+      <p class="cta-p">Join the movement to protect Himachal Pradesh's natural beauty — one photo, one report, one conversation at a time.</p>
+      <div class="cta-btns">
+        <button class="btn-primary">Start exploring →</button>
+        <button class="btn-ghost" style="color:#1a3a2a; border-color:#1a3a2a;">View on GitHub ↗</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="#" class="logo" style="display:inline-flex">
+        <div class="logo-leaf" style="background:#7aad8f"><svg width="14" height="14" viewBox="0 0 24 24" fill="#0f2318"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-8 2s-2-7 5-7c-2 0-7 4-2 10z"/></svg></div>
+        <span class="logo-text" style="color:#fff">Eco<span style="color:#7aad8f">Trail</span></span>
+      </a>
+      <p>Built in 30 hours for Code Rangers 2026. Protecting HP's natural beauty through technology and community action.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Platform</h4>
+      <ul><li><a href="#">Live map</a></li><li><a href="#">Report a spot</a></li><li><a href="#">AQI dashboard</a></li><li><a href="#">EcoBot</a></li></ul>
+    </div>
+    <div class="foot-col">
+      <h4>Team</h4>
+      <ul><li><a href="#">About EcoTrail</a></li><li><a href="#">GitHub repo</a></li><li><a href="#">Code Rangers</a></li><li><a href="#">Contact</a></li></ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 EcoTrail · Code Rangers Hackathon</span>
+    <span style="font-family:'DM Mono',monospace">Django · Gemini AI · OpenWeatherMap · Leaflet · Pinecone</span>
+  </div>
+</footer>
+
+<div id="chat-wrap">
+  <div id="chat-panel">
+    <div class="chat-hdr">
+      <div class="chat-av"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f2318"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-8 2s-2-7 5-7c-2 0-7 4-2 10z"/></svg></div>
+      <div>
+        <div class="chat-name">EcoBot</div>
+        <div class="chat-status"><div class="dot"></div>Online · Powered by Gemini AI</div>
+      </div>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="msg bot">Hi! I'm EcoBot. Ask me about safe spots, AQI levels, or eco-friendly travel in Himachal Pradesh.</div>
+      <div class="msg user">Is Triund safe to visit today?</div>
+      <div class="msg bot">Triund shows AQI 88 (Unhealthy) with high footfall this week. I'd suggest Kareri Lake instead — AQI 21, far less crowded and equally stunning! 🌿</div>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chatInput" placeholder="Ask about any spot…" onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="chat-send" onclick="sendMsg()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="white" stroke="none"/></svg></button>
+    </div>
+  </div>
+  <button id="chat-fab" onclick="toggleChat()">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <div class="chat-badge" id="chatBadge">1</div>
+  </button>
+</div>
+
+<script>
+/* ── NAV scroll ── */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',scrollY>30),{passive:true});
+
+/* ── Mobile menu ── */
+let menuOpen=false;
+function toggleMenu(){menuOpen=!menuOpen;document.getElementById('mobile-nav').classList.toggle('open',menuOpen);}
+
+/* ── Scroll reveal ── */
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ── Slot counters ── */
+function animateCounter(el){
+  const target=parseFloat(el.dataset.target);
+  const suffix=el.dataset.suffix||'';
+  const prefix=el.dataset.prefix||'';
+  const dur=1800,steps=55;
+  let i=0;
+  const t=setInterval(()=>{
+    i++;
+    const ease=1-Math.pow(1-i/steps,3);
+    const cur=target*ease;
+    el.textContent=prefix+(Number.isInteger(target)?Math.round(cur):cur.toFixed(1))+suffix;
+    if(i>=steps){clearInterval(t);el.textContent=prefix+target+suffix;}
+  },dur/steps);
+}
+const statIo=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){animateCounter(e.target);statIo.unobserve(e.target);}
+}),{threshold:.4});
+document.querySelectorAll('.stat-num[data-target]').forEach(el=>statIo.observe(el));
+
+
+/* ── WHY Cards - Auto Loop, Dots Scrubbing & Drag to Scroll ── */
+const track = document.getElementById('cardsTrack');
+const cards = document.querySelectorAll('.why-card');
+const dotsContainer = document.getElementById('whyDots');
+let activeIndex = 0;
+let autoInterval;
+let pauseTimeout;
+let isScrubbing = false;
+let isDraggingTrack = false;
+let startX;
+let scrollLeftPos;
+
+// Setup Invisible Hit Areas for Dots
+cards.forEach((_, i) => {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'dot-wrapper';
+  const dot = document.createElement('div');
+  dot.className = 'why-dot' + (i === 0 ? ' active' : '');
+  wrapper.appendChild(dot);
+  
+  wrapper.onmousedown = () => { pauseAuto(); scrollToCard(i); };
+  wrapper.ontouchstart = () => { pauseAuto(); scrollToCard(i); };
+  dotsContainer.appendChild(wrapper);
+});
+
+const allDots = document.querySelectorAll('.why-dot');
+
+function updateDots(idx) {
+  activeIndex = idx;
+  allDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+}
+
+function scrollToCard(idx) {
+  if (idx < 0) idx = cards.length - 1;
+  if (idx >= cards.length) idx = 0;
+  
+  track.style.scrollBehavior = 'smooth';
+  const card = cards[idx];
+  
+  // Calculate exact scroll position safely taking padding into account
+  const style = window.getComputedStyle(track);
+  const padLeft = parseInt(style.paddingLeft) || 0;
+  
+  track.scrollTo({ left: card.offsetLeft - padLeft, behavior: 'smooth' });
+  updateDots(idx);
+}
+
+// 1. Scrubbing logic (Dragging over the dots)
+dotsContainer.addEventListener('mousedown', (e) => {
+  isScrubbing = true;
+  track.style.scrollBehavior = 'auto'; // Instant mapping for drag
+  pauseAuto();
+  scrub(e);
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (isScrubbing) scrub(e);
+});
+
+function scrub(e) {
+  e.preventDefault(); 
+  const rect = dotsContainer.getBoundingClientRect();
+  let x = e.clientX - rect.left;
+  x = Math.max(0, Math.min(x, rect.width));
+  const percentage = x / rect.width;
+  
+  const maxScroll = track.scrollWidth - track.clientWidth;
+  track.scrollLeft = percentage * maxScroll;
+  
+  const cardWidth = cards[0].offsetWidth + 24;
+  let idx = Math.round(track.scrollLeft / cardWidth);
+  updateDots(Math.min(cards.length - 1, idx));
+}
+
+// 2. Drag to Scroll logic (Dragging the actual cards)
+track.addEventListener('mousedown', (e) => {
+  isDraggingTrack = true;
+  track.style.scrollBehavior = 'auto';
+  startX = e.pageX - track.offsetLeft;
+  scrollLeftPos = track.scrollLeft;
+  pauseAuto();
+});
+
+track.addEventListener('mousemove', (e) => {
+  if (!isDraggingTrack) return;
+  e.preventDefault();
+  const x = e.pageX - track.offsetLeft;
+  const walk = (x - startX) * 1.5; // Drag speed multiplier
+  track.scrollLeft = scrollLeftPos - walk;
+  
+  // Update dots live while dragging
+  const cardWidth = cards[0].offsetWidth + 24;
+  let idx = Math.round(track.scrollLeft / cardWidth);
+  if(idx >= 0 && idx < cards.length) updateDots(idx);
+});
+
+// 3. Re-snap and align on mouse release
+function snapToNearest() {
+  track.style.scrollBehavior = 'smooth';
+  const cardWidth = cards[0].offsetWidth + 24;
+  let idx = Math.round(track.scrollLeft / cardWidth);
+  scrollToCard(idx);
+  pauseAuto(); // trigger resume delay
+}
+
+window.addEventListener('mouseup', () => {
+  if (isScrubbing) {
+    isScrubbing = false;
+    snapToNearest();
+  }
+  if (isDraggingTrack) {
+    isDraggingTrack = false;
+    snapToNearest();
+  }
+});
+
+track.addEventListener('mouseleave', () => {
+  if (isDraggingTrack) {
+    isDraggingTrack = false;
+    snapToNearest();
+  }
+});
+
+// Sync dots if user manually uses trackpad or scroll wheel
+track.addEventListener('scroll', () => {
+  if(isScrubbing || isDraggingTrack) return;
+  const cardWidth = cards[0].offsetWidth + 24;
+  let idx = Math.round(track.scrollLeft / cardWidth);
+  if(idx !== activeIndex && idx < cards.length) updateDots(idx);
+}, { passive: true });
+
+// 4. Auto Loop Functions
+function nextCard() {
+  let nextIdx = activeIndex + 1;
+  if(nextIdx >= cards.length) nextIdx = 0;
+  scrollToCard(nextIdx);
+}
+function startAuto() {
+  clearInterval(autoInterval);
+  autoInterval = setInterval(nextCard, 3500); // Progress every 3.5 seconds
+}
+function pauseAuto() {
+  clearInterval(autoInterval);
+  clearTimeout(pauseTimeout);
+  if (!isScrubbing && !isDraggingTrack) {
+    pauseTimeout = setTimeout(startAuto, 6000); // Wait 6 seconds to resume loop
+  }
+}
+
+// Start auto loop on page load
+startAuto();
+
+// Catch all interaction events to pause the auto loop
+track.addEventListener('touchstart', pauseAuto, {passive: true});
+track.addEventListener('wheel', pauseAuto, {passive: true});
+
+
+/* ── Wheel ── */
+const wheelData=[
+  {url:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=80',msg:'Every journey is a chance to protect what we love.'},
+  {url:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=200&q=80',msg:'Sustainable paths leave footprints of hope for tomorrow.'},
+  {url:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=200&q=80',msg:'Nature\'s architecture requires no foundation but respect.'},
+  {url:'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=200&q=80',msg:'Know before you go. Protect before you leave.'},
+  {url:'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=200&q=80',msg:'Real-time data. Responsible decisions. Lasting impact.'},
+];
+const wc=document.getElementById('wheelContainer');
+const wMsg=document.getElementById('wheelMsg');
+const wRadius=155;
+const wEls=[];
+wheelData.forEach(d=>{
+  const div=document.createElement('div');div.className='wheel-item';
+  const img=document.createElement('img');img.src=d.url;img.alt='';img.loading='lazy';
+  div.appendChild(img);wc.appendChild(div);wEls.push(div);
+});
+let wStep=0;
+function spinWheel(){
+  wEls.forEach((el,i)=>{
+    const base=-90;
+    const deg=base+(i*(360/wheelData.length))-(wStep*(360/wheelData.length));
+    const rad=deg*Math.PI/180;
+    const x=Math.cos(rad)*wRadius;
+    const y=Math.sin(rad)*wRadius;
+    let norm=deg%360;if(norm<0)norm+=360;
+    if(Math.abs(norm-270)<2){
+      el.classList.add('active');
+      el.style.transform=`translate(${x}px,${y}px) scale(2.1)`;
+      wMsg.classList.remove('show');
+      setTimeout(()=>{wMsg.textContent=wheelData[i].msg;wMsg.classList.add('show');},450);
+    } else {
+      el.classList.remove('active');
+      el.style.transform=`translate(${x}px,${y}px) scale(1)`;
+    }
+  });
+  wStep++;
+}
+spinWheel();
+setInterval(spinWheel,2000);
+const items=['Eco-conscious tourism','Protect HP','Real-time AQI','AI waste detection','Community reporting','Gemini-powered AI','Leave no trace','Sustainable travel','Smart eco-guide','Open source'];
+const doubled=[...items,...items];
+const mt=document.getElementById('mTrack');
+doubled.forEach(t=>{const s=document.createElement('span');s.className='marquee-item';s.textContent=t;mt.appendChild(s);});
+
+/* ── Chatbot ── */
+let chatOpen=false;
+function toggleChat(){
+  chatOpen=!chatOpen;
+  const panel=document.getElementById('chat-panel');
+  const fab=document.getElementById('chat-fab');
+  panel.classList.toggle('open',chatOpen);
+  fab.classList.toggle('active',chatOpen);
+  if(chatOpen){document.getElementById('chatBadge').style.display='none';}
+}
+function sendMsg(){
+  const input=document.getElementById('chatInput');
+  const msgs=document.getElementById('chatMsgs');
+  const text=input.value.trim();
+  if(!text)return;
+  const u=document.createElement('div');u.className='msg user';u.textContent=text;msgs.appendChild(u);
+  input.value='';msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    const b=document.createElement('div');b.className='msg bot';
+    b.textContent='Checking local knowledge for "'+text+'"… This connects to our Gemini RAG system with verified HP tourism data. 🌱';
+    msgs.appendChild(b);msgs.scrollTop=msgs.scrollHeight;
+  },850);
+}
+</script>
+</body>
+</html>
