@@ -11,5 +11,6 @@ urlpatterns = [
     path('sos/', views.sos  , name = 'sos'),
     path('working/', views.working  , name = 'working'),
     path('about/', views.about  , name ='about'),
+    path('map/', views.map , name='map'),
 ]
 
