@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Emergency SOS | EcoTrail{% endblock %}
+
+{% block extra_css %}
+<style>
+#sos-section { padding: 140px clamp(16px, 5vw, 80px) 100px; background: #fcf6f6; min-height: 80vh; position: relative; z-index: 1;}
+#sos-section::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(231,76,60,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(231,76,60,0.05) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; z-index:0; }
+
+.sos-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+.sos-header { text-align: center; margin-bottom: 50px; }
+.sos-h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 900; color: #c0392b; letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px; }
+
+/* The Big SOS Button */
+.big-sos-btn {
+  display: block; margin: 0 auto 60px; width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, #e74c3c 40%, #c0392b 100%); border: 8px solid rgba(231,76,60,.2);
+  color: #fff; font-size: 48px; font-weight: 900; letter-spacing: 2px; cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(231,76,60,.4), 0 20px 40px rgba(192,57,43,.3);
+  transition: transform .2s, box-shadow .2s; animation: sosPulse 2s infinite;
+}
+.big-sos-btn:hover { transform: scale(1.05); }
+.big-sos-btn:active { transform: scale(0.95); animation: none; }
+@keyframes sosPulse {
+  0% { box-shadow: 0 0 0 0 rgba(231,76,60,.5); }
+  70% { box-shadow: 0 0 0 40px rgba(231,76,60,0); }
+  100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); }
+}
+
+.sos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+
+/* Contact Cards */
+.contact-card { background: #fff; border: 1px solid rgba(231,76,60,.15); border-left: 4px solid #e74c3c; border-radius: 12px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,.04); transition: transform 0.2s; }
+.contact-card:hover { transform: translateY(-4px); }
+.contact-title { font-size: 18px; font-weight: 800; color: #0f2318; margin-bottom: 6px; }
+.contact-desc { font-size: 13px; color: var(--stone); margin-bottom: 16px; }
+.contact-num { display: inline-block; font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 700; color: #e74c3c; background: rgba(231,76,60,.08); padding: 6px 16px; border-radius: 8px; text-decoration: none; }
+
+/* Safety Tips Box */
+.tips-box { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-top: 40px; }
+.tips-box h3 { font-size: 22px; font-weight: 800; color: #0f2318; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.tips-list { list-style: none; }
+.tips-list li { font-size: 15px; color: var(--stone); line-height: 1.6; padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; gap: 12px; }
+.tips-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.tips-list li::before { content: '✓'; color: #e74c3c; font-weight: bold; }
+
+@media(max-width: 560px) {
+  .big-sos-btn { width: 180px; height: 180px; font-size: 36px; }
+  .tips-box { padding: 20px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="sos-section">
+  <div class="sos-inner">
+    
+    <div class="sos-header reveal">
+      <h1 class="sos-h1">Emergency Assistance</h1>
+      <p style="color: var(--stone); font-size: 16px;">If you are in immediate danger, trigger the SOS or contact authorities directly.</p>
+    </div>
+
+    <button class="big-sos-btn reveal" onclick="alert('DEMO: GPS Coordinates (32.2432, 76.9821) and alert sent to nearest Forest Rangers and HP Disaster Management.')">
+      SOS
+    </button>
+
+    <div class="sos-grid">
+      <div class="contact-card reveal">
+        <div class="contact-title">National Emergency Response</div>
+        <p class="contact-desc">All-in-one emergency helpline (Police, Fire, Ambulance).</p>
+        <a href="tel:112" class="contact-num">112</a>
+      </div>
+
+      <div class="contact-card reveal" style="transition-delay: .1s;">
+        <div class="contact-title">HP State Disaster Management</div>
+        <p class="contact-desc">For landslides, flash floods, or weather emergencies.</p>
+        <a href="tel:1070" class="contact-num">1070</a>
+      </div>
+
+      <div class="contact-card reveal" style="transition-delay: .2s;">
+        <div class="contact-title">Mountain Rescue / Police</div>
+        <p class="contact-desc">Direct line for local police and trail rescue coordination.</p>
+        <a href="tel:100" class="contact-num">100</a>
+      </div>
+
+      <div class="contact-card reveal" style="transition-delay: .3s;">
+        <div class="contact-title">Medical Emergency</div>
+        <p class="contact-desc">Call for severe altitude sickness or physical injuries.</p>
+        <a href="tel:108" class="contact-num">108</a>
+      </div>
+    </div>
+
+    <div class="tips-box reveal">
+      <h3>⚠️ Critical Mountain Safety Tips</h3>
+      <ul class="tips-list">
+        <li><strong>Stay Put:</strong> If you are lost or injured, stay exactly where you are. Moving makes it harder for rescue teams to find you.</li>
+        <li><strong>Conserve Battery:</strong> Turn off cellular data if there is no signal, lower your screen brightness, and keep your phone warm against your body.</li>
+        <li><strong>Signal in Threes:</strong> In the wilderness, three of anything (three whistle blows, three flashlight flashes) is the universal distress signal.</li>
+        <li><strong>Altitude Sickness (AMS):</strong> If you experience severe headache, dizziness, or nausea, descend immediately. Do not sleep at a higher altitude than where symptoms started.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
