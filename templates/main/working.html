@@ -40,7 +40,53 @@
 .fc-desc { font-size: 13px; color: var(--stone); line-height: 1.65; font-weight: 400; }
 .fc-badge { display: inline-flex; align-items: center; gap: 5px; margin-top: 16px; font-size: 11px; font-weight: 600; color: var(--green-light); background: rgba(45,138,78,.08); border: 1px solid rgba(45,138,78,.18); padding: 4px 10px; border-radius: 20px; }
 .fc-badge-dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+/* Card Container */
+.fc {
+    position: relative; /* REQUIRED for the child link to stretch to this card */
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 1;
+}
 
+/* THE CLICKABLE LINK WRAPPER */
+.fc-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* Sits on top of everything inside the card */
+    text-decoration: none;
+    background: rgba(0,0,0,0); /* Hack for older IE browsers */
+}
+
+/* Card Hover Effects */
+.fc:hover {
+    transform: translateY(-8px);
+    background: var(--cream);
+    border-color: var(--green-light);
+    box-shadow: 0 20px 40px rgba(26, 58, 42, 0.08);
+}
+
+/* Icon Wrap (just to ensure it doesn't block the link) */
+.fc-icon-wrap {
+    position: relative;
+    z-index: 1;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+}
+
+/* Badge Fix */
+.fc-badge {
+    position: relative;
+    z-index: 2; /* Still below the link (z-index 10) */
+}
 .section-tag { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green-light); margin-bottom: 14px; }
 .section-tag::before { content: ''; width: 28px; height: 1.5px; background: var(--green-light); border-radius: 1px; }
 .section-h { font-size: clamp(30px, 5vw, 56px); font-weight: 900; color: #0f2318; letter-spacing: -2px; line-height: 1.1; }
@@ -90,49 +136,62 @@
     <p class="section-p reveal" style="margin-bottom:0">Seven AI-powered tools working together to make every trip to HP safer, cleaner, and more informed.</p>
 
     <div class="feat-cards-grid">
+      
       <div class="fc reveal">
+        <a href="{% url 'map' %}" class="fc-link" aria-label="Open Map"></a>
         <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg></div>
         <div class="fc-tag">Live data</div>
         <div class="fc-title">AQI safety map</div>
         <p class="fc-desc">Color-coded markers for 50+ HP tourist spots. Air quality, crowd density, and hazard status updated every hour.</p>
         <div class="fc-badge"><div class="fc-badge-dot"></div>Updated hourly</div>
       </div>
+
       <div class="fc reveal" style="transition-delay:.07s">
+        <a href="https://ecobot-cjzl.onrender.com/api/" class="fc-link" aria-label="Trip Planner"></a>
         <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
         <div class="fc-tag">AI powered</div>
-        <div class="fc-title">Waste photo detector</div>
-        <p class="fc-desc">Upload a photo from any trail. Our ML vision model classifies pollution and flags the spot on the shared map instantly.</p>
+        <div class="fc-title">Trip Planner</div>
+        <p class="fc-desc">An AI-powered trip planner real-time data to create personalized, optimized travel itineraries instantly.</p>
         <div class="fc-badge"><div class="fc-badge-dot"></div>ML · ViT model</div>
       </div>
+
       <div class="fc reveal" style="transition-delay:.14s">
+        <a href="https://ecobot-cjzl.onrender.com/api/" class="fc-link" aria-label="EcoBot Assistant"></a>
         <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div class="fc-tag">RAG chatbot</div>
         <div class="fc-title">EcoBot assistant</div>
         <p class="fc-desc">Ask about safe routes, eco-guidelines, or local conditions. Powered by Gemini AI with a verified local knowledge base.</p>
         <div class="fc-badge"><div class="fc-badge-dot"></div>Gemini · Pinecone</div>
       </div>
+
       <div class="fc reveal" style="transition-delay:.21s">
+        <a href="https://ecobot-cjzl.onrender.com/api/" class="fc-link" aria-label="SOS Alerts"></a>
         <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         <div class="fc-tag">Dashboard</div>
         <div class="fc-title">Authority alerts</div>
         <p class="fc-desc">Government officials see live hazard trends, crowd density, and pollution hotspots. Data that drives real-world action.</p>
         <div class="fc-badge"><div class="fc-badge-dot"></div>Real-time</div>
       </div>
+
       <div class="fc reveal" style="transition-delay:.28s">
+        <a href="{% url 'ranking' %}" class="fc-link" aria-label="Leaderboard"></a>
         <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
         <div class="fc-tag">Gamified</div>
         <div class="fc-title">Eco leaderboard</div>
         <p class="fc-desc">Tourists earn points for every hazard reported. Top eco-guardians are publicly recognized, turning concern into action.</p>
         <div class="fc-badge"><div class="fc-badge-dot"></div>Community driven</div>
       </div>
+
       <div class="fc reveal" style="transition-delay:.35s">
+        <a href="https://ecobot-cjzl.onrender.com/api/" class="fc-link" aria-label="Our Impact"></a>
         <div class="fc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg></div>
         <div class="fc-tag">Smart</div>
         <div class="fc-title">Best time to visit</div>
         <p class="fc-desc">Crowd and AQI trend analysis tells you the cleanest, quietest time to visit any spot — plan smarter, travel better.</p>
         <div class="fc-badge"><div class="fc-badge-dot"></div>Trend analysis</div>
       </div>
+
     </div>
   </div>
 </section>
-{% endblock %} 
+{% endblock %}
