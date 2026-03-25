@@ -1,5 +1,7 @@
 # 🏔️ EcoTrail: Smart Eco-Tourism Trail Guide
 https://ecotrail-949y.onrender.com/
+Rag is availabele in the branch rag
+
 
 **Tackling Problem Statement 1.1** | Built for Himachal Pradesh
 
