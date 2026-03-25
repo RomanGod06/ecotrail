@@ -48,6 +48,24 @@
 
     <div id="map" class="absolute inset-0"></div>
 
+<nav class="absolute top-6 right-6 z-[1000] glass-panel rounded-full px-6 py-3 flex items-center gap-6 shadow-2xl">
+        <a href="{% url 'home' %}" class="text-slate-300 hover:text-emerald-400 transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+            <i class="fa-solid fa-house"></i> Home
+        </a>
+        <a href="{% url 'working' %}" class="text-slate-300 hover:text-emerald-400 transition-colors text-xs font-bold uppercase tracking-widest hidden md:block">
+            Features
+        </a>
+        <a href="{% url 'ranking' %}" class="text-slate-300 hover:text-emerald-400 transition-colors text-xs font-bold uppercase tracking-widest hidden md:block">
+            Leaderboard
+        </a>
+        <a href="{% url 'impact' %}" class="text-slate-300 hover:text-emerald-400 transition-colors text-xs font-bold uppercase tracking-widest hidden md:block">
+            Impact
+        </a>
+        <a href="{% url 'sos' %}" class="text-red-400 hover:text-red-300 transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+            <i class="fa-solid fa-triangle-exclamation"></i> SOS
+        </a>
+    </nav>
+
     <div class="ecobot-btn-container">
         <button id="ecobot-btn" onclick="togglePanel()" class="ecobot-toggle">
             <i class="fa-solid fa-leaf text-[#88c498] text-2xl"></i>
@@ -64,7 +82,7 @@
         <div class="flex flex-col gap-2">
             <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Location</p>
             <div class="flex gap-2">
-                <input type="text" id="location-search" placeholder="Search Dharamshala..." class="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                <input type="text" id="location-search" placeholder="Search for Places" class="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
                 <button onclick="useMyLocation()" class="bg-slate-700 hover:bg-slate-600 border border-slate-600 text-white rounded-lg px-3 py-2 transition-colors">
                     <i class="fa-solid fa-location-crosshairs"></i>
                 </button>
@@ -173,8 +191,8 @@
                 const aqiIndex = data.list[0].main.aqi; 
 
                 let color = '#10b981', status = 'Safe';
-                if (aqiIndex === 3) { color = '#f59e0b'; status = 'Moderate'; } 
-                else if (aqiIndex >= 4) { color = '#ef4444'; status = 'Hazardous'; }
+                if (aqiIndex === 4) { color = '#f59e0b'; status = 'Moderate'; } 
+                else if (aqiIndex === 5) { color = '#ef4444'; status = 'Hazardous'; }
 
                 layers.aqi.clearLayers();
                 L.circle([lat, lng], { color: color, fillColor: color, fillOpacity: 0.45, radius: 1200, weight: 2 }).bindPopup(`
@@ -359,9 +377,24 @@
         }
 
         // 🚀 BOOT SEQUENCE
+        // 🚀 SMART BOOT SEQUENCE
         loadDangerData();
         fetchSupabaseCrowdData();
-        fetchAndDrawAQI(32.2190, 76.3234, "Dharamshala");
+
+        // 1. Read the URL for coordinates
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetLat = urlParams.get('lat');
+        const targetLng = urlParams.get('lng');
+        const targetLoc = urlParams.get('loc');
+
+        // 2. Decide where to fly
+        if (targetLat && targetLng && targetLoc) {
+            // If they clicked the leaderboard, fly to that specific city!
+            fetchAndDrawAQI(parseFloat(targetLat), parseFloat(targetLng), decodeURIComponent(targetLoc));
+        } else {
+            // If they just clicked the normal "Open Map" button, go to default
+            fetchAndDrawAQI(32.2190, 76.3234, "Dharamshala");
+        }
     </script>
 </body>
 </html>

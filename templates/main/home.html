@@ -203,12 +203,7 @@
   <div class="why-dots" id="whyDots"></div>
 </section>
 
-<section id="map-section" style="padding: 60px 5%; background: var(--cream); text-align: center; min-height: 50vh;">
-    <h2 style="font-size: 32px; font-weight: 800; color: #0f2318; margin-bottom: 20px;">Live Trail Map</h2>
-    <div style="background: #fff; border: 1px dashed var(--border); border-radius: 16px; padding: 100px 20px;" class="reveal">
-        <p style="color: var(--stone); font-size: 18px;">[ Django Leaflet Map Injection Point ]</p>
-    </div>
-</section>
+
 
 {% endblock %}
 
@@ -349,7 +344,7 @@ track.addEventListener('scroll', () => {
 }, { passive: true });
 
 function nextCard() { scrollToCard((activeIndex + 1) >= cards.length ? 0 : activeIndex + 1); }
-function startAuto() { clearInterval(autoInterval); autoInterval = setInterval(nextCard, 3500); }
+function startAuto() { clearInterval(autoInterval); autoInterval = setInterval(nextCard, 2500); }
 function pauseAuto() { clearInterval(autoInterval); clearTimeout(pauseTimeout); if (!isScrubbing && !isDraggingTrack) pauseTimeout = setTimeout(startAuto, 6000); }
 startAuto();
 track.addEventListener('touchstart', pauseAuto, {passive: true});

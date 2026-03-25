@@ -13,7 +13,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Cabinet Grotesk',sans-serif;background:#f5f2ec;color:#1c1c1c;overflow-x:hidden;-webkit-font-smoothing:antialiased; display:flex; flex-direction:column; min-height:100vh;}
-main {flex: 1;}
+main {flex: 1; margin-top: 68px;}
 
 :root{--green:#1a3a2a;--green-mid:#2d5a3d;--green-light:#3d7a52;--sage:#7aad8f;--mint:#b8dfc8;--cream:#f7f4ef;--warm:#f5f2ec;--stone:#6b7280;--border:rgba(0,0,0,0.09);--chakra-blue:#0044cc;}
 
@@ -51,7 +51,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 #mobile-nav a{font-size:15px;font-weight:500;color:var(--green);text-decoration:none;padding:12px 16px;border-radius:8px}
 #mobile-nav a:hover{background:var(--cream)}
 
-/* NAV dark mode overrides (for pages with dark headers like Home) */
+/* NAV dark mode overrides */
 body.dark-nav #nav:not(.solid) .logo-text{color:#f0fdf4}
 body.dark-nav #nav:not(.solid) .logo-text span{color:#7aad8f}
 body.dark-nav #nav:not(.solid) .logo-leaf{background:#7aad8f}
@@ -72,9 +72,9 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
 .foot-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap;gap:12px;max-width:1100px;margin:0 auto}
 .foot-bottom span{font-size:12px;color:rgba(255,255,255,.28)}
 
-/* ── CHATBOT ── */
-#chat-wrap{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-#chat-panel{width:clamp(280px,90vw,340px);background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.15);overflow:hidden;display:none;transform-origin:bottom right}
+/* ── CHATBOT PANEL ── */
+#chat-wrap{position:fixed;bottom:24px;right:32px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+#chat-panel{width:clamp(280px,90vw,340px);background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.15);overflow:hidden;display:none;transform-origin:bottom right; margin-bottom: 10px;}
 #chat-panel.open{display:block;animation:chatIn .35s cubic-bezier(.34,1.4,.64,1) both}
 .chat-hdr{background:var(--green);padding:16px 18px;display:flex;align-items:center;gap:12px}
 .chat-av{width:36px;height:36px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -88,10 +88,73 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
 .chat-input{flex:1;border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:8px 12px;font-size:13px;font-family:'Cabinet Grotesk',sans-serif;outline:none;background:var(--cream)}
 .chat-input:focus{border-color:var(--sage)}
 .chat-send{width:34px;height:34px;background:var(--green);border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-#chat-fab{width:54px;height:54px;background:var(--green);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(26,58,42,.4);transition:all .25s;position:relative}
-#chat-fab:hover{transform:scale(1.07);box-shadow:0 12px 32px rgba(26,58,42,.5)}
-#chat-fab.active svg{transform:rotate(45deg)}
-.chat-badge{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#e74c3c;border:2px solid var(--warm);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:700}
+
+/* ── "SUPERMAN" FLOATING ROBOT FAB ── */
+#chat-fab {
+    /* REMOVE the circle and background */
+    background: transparent;
+    border: none;
+    box-shadow: none; /* Shadow moves to the SVG itself */
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* Continuous Bouncing Animation */
+    animation: floatBounce 3s ease-in-out infinite;
+    outline: none;
+}
+
+/* Hover effect targets the SVG inside */
+#chat-fab:hover .robot-svg {
+    transform: scale(1.1);
+    filter: drop-shadow(0 15px 25px rgba(14, 165, 233, 0.4)); /* Glow increases on hover */
+}
+#chat-fab:hover { animation-play-state: paused; }
+
+/* The SVG Robot Styling */
+.robot-svg {
+    width: 75px; 
+    height: 75px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* The drop-shadow perfectly outlines the robot, giving the free-floating 3D effect */
+    filter: drop-shadow(0 10px 15px rgba(26, 58, 42, 0.4));
+}
+
+/* The EcoBot Text below the robot */
+#chat-fab-text {
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--green);
+    letter-spacing: 0.15em;
+    margin-top: 4px;
+    background: rgba(255,255,255,0.8);
+    padding: 2px 8px;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+/* Badge positioned at the top right of the robot head */
+.chat-badge {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    background: #e74c3c;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: #fff;
+    font-weight: 900;
+    z-index: 10;
+}
 
 /* GLOBAL ANIMATIONS & REVEALS */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
@@ -99,6 +162,10 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
 @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
 @keyframes chatIn{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:none}}
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
 
 /* RESPONSIVE */
 @media(max-width:860px){
@@ -110,6 +177,7 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
 @media(max-width:560px){
   .foot-grid{grid-template-columns:1fr}
   .foot-brand{grid-column:span 1}
+  .robot-svg { width: 60px; height: 60px; }
 }
 </style>
 {% block extra_css %}{% endblock %}
@@ -128,12 +196,13 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
     <li><a href="{% url 'working' %}">Features</a></li>
     <li><a href="{% url 'ranking' %}">Leaderboard</a></li>
     <li><a href="{% url 'impact' %}">Impact</a></li>
+    <li><a href="{% url 'about' %}">About</a></li>
     <li><a href="{% url 'sos' %}" style="color: #e74c3c;">SOS</a></li>
   </ul>
 
   <div class="nav-r">
     <div class="live-pill"><div class="dot"></div>Live data</div>
-    <a href="{% url 'home' %}" class="btn-nav" style="text-decoration:none;">Open map →</a>
+    <a href="/map/" class="btn-nav" style="text-decoration:none;">Open map →</a>
     <button class="ham" id="hamBtn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -144,7 +213,9 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
   <a href="{% url 'working' %}">Features</a>
   <a href="{% url 'ranking' %}">Leaderboard</a>
   <a href="{% url 'impact' %}">Impact</a>
+  <a href="{% url 'about' %}">About</a>
   <a href="{% url 'sos' %}" style="color: #e74c3c;">SOS</a>
+  <a href="/map/" style="color: var(--green-light); font-weight: 700;">Open Map →</a>
 </div>
 
 <main>
@@ -162,11 +233,21 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
     </div>
     <div class="foot-col">
       <h4>Platform</h4>
-      <ul><li><a href="{% url 'home' %}">Live map</a></li><li><a href="#">Report a spot</a></li><li><a href="#">AQI dashboard</a></li><li><a href="#">EcoBot</a></li></ul>
+      <ul>
+        <li><a href="/map/">Live Map</a></li>
+        <li><a href="{% url 'working' %}">How it Works</a></li>
+        <li><a href="{% url 'ranking' %}">Leaderboard</a></li>
+        <li><a href="{% url 'impact' %}">Our Impact</a></li>
+      </ul>
     </div>
     <div class="foot-col">
-      <h4>Team</h4>
-      <ul><li><a href="{% url 'about' %}">About EcoTrail</a></li><li><a href="#">GitHub repo</a></li><li><a href="#">Code Rangers</a></li><li><a href="#">Contact</a></li></ul>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="{% url 'about' %}">About Us</a></li>
+        <li><a href="{% url 'sos' %}" style="color: #e74c3c;">Emergency SOS</a></li>
+        <li><a href="#">GitHub Repo</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
     </div>
   </div>
   <div class="foot-bottom">
@@ -178,7 +259,9 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
 <div id="chat-wrap">
   <div id="chat-panel">
     <div class="chat-hdr">
-      <div class="chat-av"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0f2318"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-8 2s-2-7 5-7c-2 0-7 4-2 10z"/></svg></div>
+      <div class="chat-av" style="background: linear-gradient(135deg, #10b981, #0ea5e9);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><circle cx="8.5" cy="10" r="1.5"/><circle cx="15.5" cy="10" r="1.5"/><path d="M12 16c-2.5 0-4.5-1.5-4.5-1.5s2 1.5 4.5 1.5 4.5-1.5 4.5-1.5-2 1.5-4.5 1.5z"/><path d="M19 6h-1V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v1H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1v1a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-1h1a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z"/></svg>
+      </div>
       <div>
         <div class="chat-name">EcoBot</div>
         <div class="chat-status"><div class="dot"></div>Online · Powered by Gemini AI</div>
@@ -192,8 +275,25 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
       <button class="chat-send" onclick="sendMsg()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="white" stroke="none"/></svg></button>
     </div>
   </div>
+
   <button id="chat-fab" onclick="toggleChat()">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    
+    <svg class="robot-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="botGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#10b981" /> <stop offset="100%" stop-color="#0ea5e9" /> </linearGradient>
+      </defs>
+      <line x1="50" y1="20" x2="50" y2="5" stroke="url(#botGrad)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="50" cy="5" r="4" fill="#0ea5e9"/>
+      <path d="M30 65 C25 85, 45 95, 50 95 C55 95, 75 85, 70 65 Z" fill="url(#botGrad)"/>
+      <rect x="15" y="20" width="70" height="45" rx="20" fill="url(#botGrad)"/>
+      <rect x="22" y="27" width="56" height="31" rx="12" fill="#0f172a"/>
+      <circle cx="36" cy="42" r="5" fill="#34d399"/>
+      <circle cx="64" cy="42" r="5" fill="#34d399"/>
+      <path d="M42 50 Q50 54 58 50" stroke="#34d399" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>
+    
+    <span id="chat-fab-text">ECOBOT</span>
     <div class="chat-badge" id="chatBadge" style="display:none;">1</div>
   </button>
 </div>
@@ -213,9 +313,9 @@ let chatOpen=false;
 function toggleChat(){
   chatOpen=!chatOpen;
   document.getElementById('chat-panel').classList.toggle('open',chatOpen);
-  document.getElementById('chat-fab').classList.toggle('active',chatOpen);
   if(chatOpen) document.getElementById('chatBadge').style.display='none';
 }
+
 function sendMsg(){
   const input=document.getElementById('chatInput');
   const msgs=document.getElementById('chatMsgs');
@@ -229,8 +329,22 @@ function sendMsg(){
     msgs.appendChild(b);msgs.scrollTop=msgs.scrollHeight;
   },850);
 }
+
+/* 🌐 Link Interceptor for #open-chatbot */
+document.addEventListener("DOMContentLoaded", function() {
+    if(window.location.hash === '#open-chatbot') {
+        setTimeout(toggleChat, 500); 
+        history.replaceState(null, null, ' '); 
+    }
+    document.querySelectorAll('a[href="#open-chatbot"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            if(!chatOpen) toggleChat(); 
+        });
+    });
+});
 </script>
 
 {% block scripts %}{% endblock %}
 </body>
-</html> 
+</html>

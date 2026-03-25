@@ -10,37 +10,50 @@
 .lb-h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 900; color: #0f2318; letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px; }
 .lb-h1 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--green-light); }
 
+.board-section { margin-bottom: 80px; }
+.section-title { text-align: center; font-size: clamp(22px, 4vw, 28px); font-weight: 800; color: #0f2318; margin-bottom: 30px; }
+
 .board-container { max-width: 800px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-radius: 20px; box-shadow: 0 24px 48px rgba(0,0,0,.04); overflow: hidden; }
-.board-row { display: flex; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--border); transition: background .2s; }
+.board-row { display: flex; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--border); transition: background .2s, transform .2s; gap: 16px; cursor: pointer; }
 .board-row:last-child { border-bottom: none; }
-.board-row:hover { background: var(--cream); }
+.board-row:hover { background: var(--cream); transform: scale(1.01); z-index: 2; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,.05); }
 .board-row.top-1 { background: linear-gradient(90deg, rgba(255,215,0,.1), transparent); }
 .board-row.top-2 { background: linear-gradient(90deg, rgba(192,192,192,.1), transparent); }
 .board-row.top-3 { background: linear-gradient(90deg, rgba(205,127,50,.1), transparent); }
 
-.rank { font-family: 'Instrument Serif', serif; font-size: 32px; font-weight: 700; color: var(--stone); width: 60px; text-align: center; }
+.rank { font-family: 'Instrument Serif', serif; font-size: 32px; font-weight: 700; color: var(--stone); width: 40px; text-align: center; flex-shrink: 0; }
 .top-1 .rank { color: #d4af37; } .top-2 .rank { color: #9ca3af; } .top-3 .rank { color: #b08d57; }
 
-.user-info { flex: 1; display: flex; align-items: center; gap: 16px; margin-left: 20px; }
-.avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; flex-shrink: 0; }
-.name-blob { display: flex; flex-direction: column; }
-.user-name { font-size: 17px; font-weight: 800; color: #0f2318; }
-.user-reports { font-size: 12px; color: var(--stone); }
+.user-info { flex: 1; display: flex; align-items: center; gap: 16px; min-width: 0; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+.location-icon { background: var(--green-light); }
+.name-blob { display: flex; flex-direction: column; min-width: 0; }
+.user-name { font-size: 17px; font-weight: 800; color: #0f2318; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-reports { font-size: 12px; color: var(--stone); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.points-wrap { text-align: right; }
+.points-wrap { text-align: right; flex-shrink: 0; }
 .points { font-size: 24px; font-weight: 900; color: var(--green); font-variant-numeric: tabular-nums; }
 .pts-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--green-light); }
 
-/* Current user sticky bar */
 .my-rank { background: var(--green); color: #fff; position: sticky; bottom: 0; z-index: 10; border-radius: 0 0 20px 20px; }
-.my-rank:hover { background: var(--green-mid); }
+.my-rank:hover { background: var(--green-mid); transform: none; box-shadow: none; }
 .my-rank .user-name, .my-rank .points { color: #fff; }
 .my-rank .user-reports, .my-rank .pts-label, .my-rank .rank { color: rgba(255,255,255,.7); }
 
-@media(max-width:560px){
+.data-source-card { max-width: 800px; margin: 20px auto 0; padding: 20px; background: rgba(61,122,82,.05); border: 1px solid rgba(61,122,82,.2); border-radius: 12px; text-align: center; font-size: 13px; color: var(--stone); line-height: 1.5; }
+.data-source-card strong { color: var(--green); }
+
+@media(max-width: 768px){ #leaderboard { padding: 120px 20px 80px; } }
+@media(max-width: 560px){
+  .board-row { padding: 16px 12px; gap: 10px; }
+  .rank { font-size: 24px; width: 30px; }
+  .user-info { gap: 10px; }
+  .avatar { width: 36px; height: 36px; font-size: 14px; }
+  .user-name { font-size: 15px; }
+  .user-reports { font-size: 11px; }
   .points { font-size: 18px; }
-  .user-info { margin-left: 0; gap: 10px; }
-  .rank { width: 40px; font-size: 24px; }
+  .pts-label { font-size: 9px; }
+  .data-source-card { font-size: 12px; padding: 16px; }
 }
 </style>
 {% endblock %}
@@ -48,87 +61,117 @@
 {% block content %}
 <section id="leaderboard">
   <div class="lb-header reveal">
-    <div class="lb-tag">Community Driven</div>
+    <div class="lb-tag">Data-Driven Ratings</div>
     <h1 class="lb-h1">The Eco <em>Leaderboard</em></h1>
-    <p style="color: var(--stone); font-size: 16px;">Top tourists and locals recognized for reporting hazards, picking up waste, and keeping Himachal safe.</p>
+    <p style="color: var(--stone); font-size: 16px;">Ranking the cleanest, safest, and most sustainable destinations across Himachal Pradesh. Click a city to view its live map data.</p>
   </div>
 
-  <div class="board-container reveal" style="transition-delay: .1s;">
-    <div class="board-row top-1">
-      <div class="rank">#1</div>
-      <div class="user-info">
-        <div class="avatar" style="background: #d4af37;">S</div>
-        <div class="name-blob">
-          <span class="user-name">Satyam</span>
-          <span class="user-reports">42 Hazards Reported</span>
+  <div class="board-section">
+    <div class="board-container reveal" style="transition-delay: .2s;">
+      
+      <div class="board-row top-1" onclick="flyToMap(31.1147, 77.3486, 'Theog')">
+        <div class="rank">#1</div>
+        <div class="user-info">
+          <div class="avatar location-icon">📍</div>
+          <div class="name-blob">
+            <span class="user-name">Theog</span>
+            <span class="user-reports">Cleanest City & Excellent AQI</span>
+          </div>
+        </div>
+        <div class="points-wrap">
+          <div class="points">98.5</div>
+          <div class="pts-label">Eco Score</div>
         </div>
       </div>
-      <div class="points-wrap">
-        <div class="points">12,450</div>
-        <div class="pts-label">Eco Points</div>
+
+      <div class="board-row top-2" onclick="flyToMap(30.8351, 76.9416, 'Parwanoo')">
+        <div class="rank">#2</div>
+        <div class="user-info">
+          <div class="avatar location-icon">📍</div>
+          <div class="name-blob">
+            <span class="user-name">Parwanoo</span>
+            <span class="user-reports">Clean Air Award Winner</span>
+          </div>
+        </div>
+        <div class="points-wrap">
+          <div class="points">96.2</div>
+          <div class="pts-label">Eco Score</div>
+        </div>
       </div>
+
+      <div class="board-row top-3" onclick="flyToMap(31.5360, 78.2570, 'Kalpa')">
+        <div class="rank">#3</div>
+        <div class="user-info">
+          <div class="avatar location-icon">📍</div>
+          <div class="name-blob">
+            <span class="user-name">Kalpa</span>
+            <span class="user-reports">Pristine Air Quality</span>
+          </div>
+        </div>
+        <div class="points-wrap">
+          <div class="points">95.0</div>
+          <div class="pts-label">Eco Score</div>
+        </div>
+      </div>
+
+      <div class="board-row" onclick="flyToMap(32.1109, 76.5361, 'Palampur')">
+        <div class="rank">#4</div>
+        <div class="user-info">
+          <div class="avatar location-icon">📍</div>
+          <div class="name-blob">
+            <span class="user-name">Palampur</span>
+            <span class="user-reports">High Sanitation Rating</span>
+          </div>
+        </div>
+        <div class="points-wrap">
+          <div class="points">91.4</div>
+          <div class="pts-label">Eco Score</div>
+        </div>
+      </div>
+
+      <div class="board-row" onclick="flyToMap(32.2432, 77.1892, 'Manali')">
+        <div class="rank">#5</div>
+        <div class="user-info">
+          <div class="avatar location-icon">📍</div>
+          <div class="name-blob">
+            <span class="user-name">Manali</span>
+            <span class="user-reports">Consistent Air Quality</span>
+          </div>
+        </div>
+        <div class="points-wrap">
+          <div class="points">89.9</div>
+          <div class="pts-label">Eco Score</div>
+        </div>
+      </div>
+
+      <div class="board-row my-rank" onclick="flyToMap(31.1048, 77.1734, 'Shimla')">
+        <div class="rank">#6</div>
+        <div class="user-info">
+          <div class="avatar" style="background: #fff; color: var(--green);">📍</div>
+          <div class="name-blob">
+            <span class="user-name">Shimla (Your Location)</span>
+            <span class="user-reports">Good Municipal Management</span>
+          </div>
+        </div>
+        <div class="points-wrap">
+          <div class="points">88.5</div>
+          <div class="pts-label">Eco Score</div>
+        </div>
+      </div>
+
     </div>
     
-    <div class="board-row top-2">
-      <div class="rank">#2</div>
-      <div class="user-info">
-        <div class="avatar" style="background: #9ca3af;">T</div>
-        <div class="name-blob">
-          <span class="user-name">Taran</span>
-          <span class="user-reports">38 Hazards Reported</span>
-        </div>
-      </div>
-      <div class="points-wrap">
-        <div class="points">11,200</div>
-        <div class="pts-label">Eco Points</div>
-      </div>
+    <div class="data-source-card reveal">
+      <strong>How is this calculated?</strong><br>
+      The Destination Eco Score is a synthesized metric combining live Air Quality Index (AQI) data via the <em>OpenWeather API</em>, historical hazard density, and municipal sanitation rankings from the national <em>Swachh Survekshan</em> (Cleanliness Survey) reports.
     </div>
-
-    <div class="board-row top-3">
-      <div class="rank">#3</div>
-      <div class="user-info">
-        <div class="avatar" style="background: #b08d57;">A</div>
-        <div class="name-blob">
-          <span class="user-name">Abhay</span>
-          <span class="user-reports">31 Hazards Reported</span>
-        </div>
-      </div>
-      <div class="points-wrap">
-        <div class="points">9,850</div>
-        <div class="pts-label">Eco Points</div>
-      </div>
-    </div>
-
-    <div class="board-row">
-      <div class="rank">#4</div>
-      <div class="user-info">
-        <div class="avatar">R</div>
-        <div class="name-blob">
-          <span class="user-name">Rohit</span>
-          <span class="user-reports">27 Hazards Reported</span>
-        </div>
-      </div>
-      <div class="points-wrap">
-        <div class="points">8,100</div>
-        <div class="pts-label">Eco Points</div>
-      </div>
-    </div>
-
-    <div class="board-row my-rank">
-      <div class="rank">#12</div>
-      <div class="user-info">
-        <div class="avatar" style="background: #fff; color: var(--green);">You</div>
-        <div class="name-blob">
-          <span class="user-name">Tanishque</span>
-          <span class="user-reports">8 Hazards Reported</span>
-        </div>
-      </div>
-      <div class="points-wrap">
-        <div class="points">2,400</div>
-        <div class="pts-label">Eco Points</div>
-      </div>
-    </div>
-
   </div>
 </section>
-{% endblock %} 
+
+<script>
+  function flyToMap(lat, lng, cityName) {
+    // Redirects to the map page and passes the coordinates in the URL
+    window.location.href = `{% url 'map' %}?lat=${lat}&lng=${lng}&loc=${encodeURIComponent(cityName)}`;
+  }
+</script>
+{% endblock %}

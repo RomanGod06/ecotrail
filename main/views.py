@@ -36,5 +36,5 @@ def sos (request) :
 def impact (request) :
     return render(request,"main/impact.html")
 
-def map (request) :
-    return render(request,"map/map.html")
+def map(request) :
+    return render(request,"main/map.html")

@@ -4,39 +4,81 @@
 
 {% block extra_css %}
 <style>
-/* ── STATS ── */
-#stats-page { padding: 160px clamp(16px, 5vw, 80px) 100px; background: var(--warm); min-height: 70vh;}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.05);max-width:960px;margin:0 auto 80px}
-.stat-cell{padding:36px 24px;text-align:center;border-right:1px solid var(--border);background:#fff;transition:transform .3s,box-shadow .3s;position:relative;z-index:1}
-.stat-cell:last-child{border-right:none}
-.stat-cell::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(45,138,78,.07),rgba(61,122,82,.04));opacity:0;transition:opacity .3s;pointer-events:none;z-index:-1}
-.stat-cell:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(45,90,61,.12);z-index:10;border-radius:8px;}
-.stat-cell:hover::before{opacity:1}
-.stat-cell:hover .stat-num{color:var(--green-light)}
-.stat-cell>*{position:relative;z-index:2}
-.stat-num{font-size:clamp(32px,5vw,56px);font-weight:900;color:var(--green);letter-spacing:-2px;line-height:1;margin-bottom:12px;font-variant-numeric:tabular-nums;transition:color .3s}
-.stat-lbl{font-size:14px;color:var(--stone);font-weight:500;line-height:1.4}
+/* ── BASE VARIABLES (Fallback if not in base.html) ── */
+:root {
+  --warm: #fcfaf8;
+  --green: #2d5a3d;
+  --green-light: #3d7a52;
+  --stone: #7a7a7a;
+  --border: #e5e5e5;
+  --sage: #a3b8a8;
+  --danger: #d9534f;
+  --caution: #f0ad4e;
+  --safe: #5cb85c;
+}
 
-.section-tag{display:flex;align-items:center;justify-content:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--green-light);margin-bottom:14px}
-.section-tag::before{content:'';width:28px;height:1.5px;background:var(--green-light);border-radius:1px}
-.section-h{font-size:clamp(30px,5vw,56px);font-weight:900;color:#0f2318;letter-spacing:-2px;line-height:1.1;text-align:center;margin-bottom:40px;}
-.section-h em{font-family:'Instrument Serif',serif;font-style:italic;color:var(--green-light)}
+/* ── STATS SECTION ── */
+#stats-page { padding: 120px clamp(16px, 5vw, 80px) 80px; background: var(--warm); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 4px 24px rgba(0,0,0,.05); max-width: 1000px; margin: 0 auto; }
+.stat-cell { padding: 36px 24px; text-align: center; border-right: 1px solid var(--border); background: #fff; transition: transform .3s, box-shadow .3s; position: relative; z-index: 1; }
+.stat-cell:last-child { border-right: none; }
+.stat-cell::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(45,138,78,.07), rgba(61,122,82,.04)); opacity: 0; transition: opacity .3s; pointer-events: none; z-index: -1; }
+.stat-cell:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(45,90,61,.12); z-index: 10; border-radius: 8px; }
+.stat-cell:hover::before { opacity: 1; }
+.stat-cell:hover .stat-num { color: var(--green-light); }
+.stat-cell > * { position: relative; z-index: 2; }
+.stat-num { font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: var(--green); letter-spacing: -2px; line-height: 1; margin-bottom: 12px; font-variant-numeric: tabular-nums; transition: color .3s; }
+.stat-lbl { font-size: 14px; color: var(--stone); font-weight: 500; line-height: 1.4; }
+
+/* ── TYPOGRAPHY & REVEAL ANIMATIONS ── */
+.section-tag { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green-light); margin-bottom: 14px; }
+.section-tag::before { content: ''; width: 28px; height: 1.5px; background: var(--green-light); border-radius: 1px; }
+.section-h { font-size: clamp(30px, 5vw, 52px); font-weight: 900; color: #0f2318; letter-spacing: -1.5px; line-height: 1.1; text-align: center; margin-bottom: 40px; }
+.section-h em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--green-light); }
+.section-desc { text-align: center; max-width: 600px; margin: 0 auto 60px auto; color: var(--stone); line-height: 1.6; font-size: 16px; }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
 
 /* ── MARQUEE ── */
-#marquee{background:var(--green);padding:24px 0;overflow:hidden;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
-.marquee-track{display:flex;width:max-content;animation:marquee 22s linear infinite}
-.marquee-item{display:inline-flex;align-items:center;gap:18px;padding:0 28px;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.7);white-space:nowrap}
-.marquee-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--sage);display:inline-block}
+#marquee { background: var(--green); padding: 24px 0; overflow: hidden; position: relative; z-index: 1; }
+.marquee-track { display: flex; width: max-content; animation: marquee 22s linear infinite; }
+.marquee-item { display: inline-flex; align-items: center; gap: 18px; padding: 0 28px; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.9); white-space: nowrap; }
+.marquee-item::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--sage); display: inline-block; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ── IMPACT & WELL-BEING CARDS ── */
+#impact-cards { padding: 100px clamp(16px, 5vw, 80px); background: #ffffff; }
+.cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+.impact-card { background: var(--warm); border: 1px solid var(--border); border-radius: 16px; padding: 32px 24px; transition: all 0.4s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.impact-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,.08); border-color: var(--green-light); }
+.impact-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--green-light); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+.impact-card:hover::after { transform: scaleX(1); }
+
+.card-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(61,122,82,.1); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; font-size: 24px; color: var(--green); transition: transform 0.4s ease; }
+.impact-card:hover .card-icon { transform: scale(1.1) rotate(5deg); background: var(--green); color: #fff; }
+
+.card-title { font-size: 20px; font-weight: 800; color: #0f2318; margin-bottom: 12px; letter-spacing: -0.5px; }
+.card-text { font-size: 14px; color: var(--stone); line-height: 1.6; margin-bottom: 24px; flex-grow: 1; }
+
+.status-pills { display: flex; gap: 8px; margin-top: auto; }
+.badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; }
+.badge.safe { background: rgba(92,184,92,.1); color: var(--safe); }
+.badge.caution { background: rgba(240,173,78,.1); color: var(--caution); }
+.badge.danger { background: rgba(217,83,79,.1); color: var(--danger); }
+.badge.eco { background: rgba(61,122,82,.1); color: var(--green-light); }
 
 @media(max-width:860px){
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .stat-cell:nth-child(2){border-right:none}
-  .stat-cell:nth-child(3){border-top:1px solid var(--border)}
-  .stat-cell:nth-child(4){border-top:1px solid var(--border);border-right:none}
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat-cell:nth-child(2) { border-right: none; }
+  .stat-cell:nth-child(3) { border-top: 1px solid var(--border); }
+  .stat-cell:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
 }
 @media(max-width:560px){
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .stat-num{font-size:32px;}
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat-cell { border-right: none !important; border-bottom: 1px solid var(--border); }
+  .stat-cell:last-child { border-bottom: none; }
+  .section-h { font-size: 32px; }
 }
 </style>
 {% endblock %}
@@ -46,47 +88,131 @@
   <div class="reveal">
     <div class="section-tag">Platform Impact</div>
     <h2 class="section-h">The numbers that<br><em>matter.</em></h2>
+    <p class="section-desc">Hill states face unique ecological and safety challenges. We are building the infrastructure to protect both the travelers and the trails they walk on.</p>
   </div>
 
   <div class="stats-grid">
-    <div class="stat-cell reveal"><div class="stat-num" data-target="1.7" data-suffix="Cr">0Cr</div><div class="stat-lbl">tourists visit HP annually</div></div>
-    <div class="stat-cell reveal" style="transition-delay:.1s"><div class="stat-num" data-target="234" data-suffix="">0</div><div class="stat-lbl">spots flagged as needing attention</div></div>
-    <div class="stat-cell reveal" style="transition-delay:.2s"><div class="stat-num" data-target="30" data-prefix="<" data-suffix="s">0s</div><div class="stat-lbl">to flag and share any hazard</div></div>
-    <div class="stat-cell reveal" style="transition-delay:.3s"><div class="stat-num" data-target="0" data-suffix="₹">0₹</div><div class="stat-lbl">cost to use the platform</div></div>
+    <div class="stat-cell reveal" style="transition-delay: .1s">
+        <div class="stat-num" data-target="1.7" data-suffix="Cr">0Cr</div>
+        <div class="stat-lbl">tourists visit annually</div>
+    </div>
+    <div class="stat-cell reveal" style="transition-delay: .2s">
+        <div class="stat-num" data-target="234" data-suffix="">0</div>
+        <div class="stat-lbl">hazard zones flagged</div>
+    </div>
+    <div class="stat-cell reveal" style="transition-delay: .3s">
+        <div class="stat-num" data-target="30" data-prefix="<" data-suffix="s">0s</div>
+        <div class="stat-lbl">to report a trail emergency</div>
+    </div>
+    <div class="stat-cell reveal" style="transition-delay: .4s">
+        <div class="stat-num" data-target="0" data-suffix="₹">0₹</div>
+        <div class="stat-lbl">cost for public safety</div>
+    </div>
   </div>
 </div>
 
 <div id="marquee">
   <div class="marquee-track" id="mTrack"></div>
 </div>
+
+<div id="impact-cards">
+  <div class="reveal">
+    <div class="section-tag">User Well-Being</div>
+    <h2 class="section-h">Safer trails, <br><em>greener footsteps.</em></h2>
+    <p class="section-desc">We bridge the gap between exploration and preparation. Real-time data ensures you are never caught off guard by the unpredictable nature of the mountains.</p>
+  </div>
+
+  <div class="cards-container">
+    <div class="impact-card reveal" style="transition-delay: .1s">
+      <div class="card-icon">🗺️</div>
+      <h3 class="card-title">Real-Time Geo-Routing</h3>
+      <p class="card-text">Live updates on landslide-prone zones and sudden weather hazards. Know the status of your trail before you take the first step.</p>
+      <div class="status-pills">
+        <span class="badge safe">Safe</span>
+        <span class="badge caution">Caution</span>
+        <span class="badge danger">Danger</span>
+      </div>
+    </div>
+
+    <div class="impact-card reveal" style="transition-delay: .2s">
+      <div class="card-icon">👥</div>
+      <h3 class="card-title">Crowd Density Alerts</h3>
+      <p class="card-text">Avoid over-crowded spots that strain local ecology. We estimate trail traffic via check-ins to help you find secluded, peaceful routes.</p>
+      <div class="status-pills">
+        <span class="badge eco">Live Tracking</span>
+      </div>
+    </div>
+
+    <div class="impact-card reveal" style="transition-delay: .3s">
+      <div class="card-icon">🚑</div>
+      <h3 class="card-title">Immediate Emergency Aid</h3>
+      <p class="card-text">Your exact coordinates paired with one-tap access to nearby emergency contacts, forest rangers, and critical first-aid tips.</p>
+      <div class="status-pills">
+        <span class="badge danger">SOS Ready</span>
+      </div>
+    </div>
+
+    <div class="impact-card reveal" style="transition-delay: .4s">
+      <div class="card-icon">🍃</div>
+      <h3 class="card-title">Carbon Footprint Calculator</h3>
+      <p class="card-text">Track the environmental cost of your transport and distance covered. Learn how to offset your impact and leave no trace behind.</p>
+      <div class="status-pills">
+        <span class="badge eco">Eco-Conscious</span>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-/* ── Slot counters ── */
-function animateCounter(el){
-  const target=parseFloat(el.dataset.target);
-  const suffix=el.dataset.suffix||'';
-  const prefix=el.dataset.prefix||'';
-  const dur=1800,steps=55;
-  let i=0;
-  const t=setInterval(()=>{
-    i++;
-    const ease=1-Math.pow(1-i/steps,3);
-    const cur=target*ease;
-    el.textContent=prefix+(Number.isInteger(target)?Math.round(cur):cur.toFixed(1))+suffix;
-    if(i>=steps){clearInterval(t);el.textContent=prefix+target+suffix;}
-  },dur/steps);
-}
-const statIo=new IntersectionObserver(entries=>entries.forEach(e=>{
-  if(e.isIntersecting){animateCounter(e.target);statIo.unobserve(e.target);}
-}),{threshold:.4});
-document.querySelectorAll('.stat-num[data-target]').forEach(el=>statIo.observe(el));
+/* ── Intersection Observer for Reveal Animations ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      // If it's a stats counter, trigger the number animation
+      const statNum = entry.target.querySelector('.stat-num');
+      if(statNum && !statNum.classList.contains('counted')) {
+          animateCounter(statNum);
+          statNum.classList.add('counted');
+      }
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
 
-/* Marquee Clone Logic */
-const items=['Eco-conscious tourism','Protect HP','Real-time AQI','AI waste detection','Community reporting','Gemini-powered AI','Leave no trace','Sustainable travel','Smart eco-guide','Open source'];
-const doubled=[...items,...items];
-const mt=document.getElementById('mTrack');
-doubled.forEach(t=>{const s=document.createElement('span');s.className='marquee-item';s.textContent=t;mt.appendChild(s);});
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ── Slot counters Logic ── */
+function animateCounter(el){
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  const prefix = el.dataset.prefix || '';
+  const dur = 2000, steps = 60;
+  let i = 0;
+  const t = setInterval(() => {
+    i++;
+    const ease = 1 - Math.pow(1 - i / steps, 3); // Cubic ease-out
+    const cur = target * ease;
+    el.textContent = prefix + (Number.isInteger(target) ? Math.round(cur) : cur.toFixed(1)) + suffix;
+    if(i >= steps){
+        clearInterval(t);
+        el.textContent = prefix + target + suffix;
+    }
+  }, dur / steps);
+}
+
+/* ── Marquee Clone Logic ── */
+const items = ['Eco-conscious tourism', 'Protect Mountains', 'Real-time AQI', 'Hazard Detection', 'Community reporting', 'Emergency SOS', 'Leave no trace', 'Sustainable travel', 'Smart eco-guide', 'Zero Carbon'];
+// Duplicate array multiple times to ensure smooth infinite scroll
+const doubled = [...items, ...items, ...items]; 
+const mt = document.getElementById('mTrack');
+doubled.forEach(t => {
+    const s = document.createElement('span');
+    s.className = 'marquee-item';
+    s.textContent = t;
+    mt.appendChild(s);
+});
 </script>
-{% endblock %} 
+{% endblock %}
