@@ -257,24 +257,27 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
 </footer>
 
 <div id="chat-wrap">
-  <div id="chat-panel">
-    <div class="chat-hdr">
-      <div class="chat-av" style="background: linear-gradient(135deg, #10b981, #0ea5e9);">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><circle cx="8.5" cy="10" r="1.5"/><circle cx="15.5" cy="10" r="1.5"/><path d="M12 16c-2.5 0-4.5-1.5-4.5-1.5s2 1.5 4.5 1.5 4.5-1.5 4.5-1.5-2 1.5-4.5 1.5z"/><path d="M19 6h-1V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v1H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1v1a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-1h1a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z"/></svg>
-      </div>
-      <div>
-        <div class="chat-name">EcoBot</div>
-        <div class="chat-status"><div class="dot"></div>Online · Powered by Gemini AI</div>
-      </div>
-    </div>
-    <div class="chat-msgs" id="chatMsgs">
-      <div class="msg bot">Hi! I'm EcoBot. Ask me about safe spots, AQI levels, or eco-friendly travel in Himachal Pradesh.</div>
-    </div>
-    <div class="chat-input-row">
-      <input class="chat-input" id="chatInput" placeholder="Ask about any spot…" onkeydown="if(event.key==='Enter')sendMsg()">
-      <button class="chat-send" onclick="sendMsg()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="white" stroke="none"/></svg></button>
-    </div>
-  </div>
+  <a id="chat-fab" href="https://ecobot-cjzl.onrender.com/api/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+    
+    <svg class="robot-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="botGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#10b981" /> <stop offset="100%" stop-color="#0ea5e9" /> 
+        </linearGradient>
+      </defs>
+      <line x1="50" y1="20" x2="50" y2="5" stroke="url(#botGrad)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="50" cy="5" r="4" fill="#0ea5e9"/>
+      <path d="M30 65 C25 85, 45 95, 50 95 C55 95, 75 85, 70 65 Z" fill="url(#botGrad)"/>
+      <rect x="15" y="20" width="70" height="45" rx="20" fill="url(#botGrad)"/>
+      <rect x="22" y="27" width="56" height="31" rx="12" fill="#0f172a"/>
+      <circle cx="36" cy="42" r="5" fill="#34d399"/>
+      <circle cx="64" cy="42" r="5" fill="#34d399"/>
+      <path d="M42 50 Q50 54 58 50" stroke="#34d399" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>
+    
+    <span id="chat-fab-text">ECOBOT</span>
+  </a>
+</div>
 
   <button id="chat-fab" onclick="toggleChat()">
     
