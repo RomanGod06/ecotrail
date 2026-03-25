@@ -1,56 +1,62 @@
-# EcoTrail 🌿
+# 🏔️ EcoTrail: Smart Eco-Tourism Trail Guide
 
-Hackathon project — Tourism & Environmental Safety
+**Tackling Problem Statement 1.1** | Built for Himachal Pradesh
 
-## Team
-| Role | Branch |
-|------|--------|
-| Lead + Integration | main |
-| Frontend | feat/frontend |
-| Backend | feat/backend |
-| ML | feat/ml |
-| RAG | feat/rag |
+EcoTrail is a Progressive Web App (PWA) designed to protect both tourists and the fragile ecosystems of high-altitude trails. By turning 1.7 crore annual tourists into a live sensor network, EcoTrail bridges the gap between fragmented safety data, unmonitored crowds, and broken environmental feedback loops.
 
-## Setup
+---
 
-### 1. Clone the repo
-- git clone https://github.com/YOUR_USERNAME/ecotrail.git
-- cd ecotrail
+## 🚨 The Problem
+High-altitude tourism currently operates in the dark, leading to preventable accidents and severe ecological degradation:
+* **Zero Real-Time Safety:** Trails lack live data on landslide-prone zones and sudden weather hazards.
+* **Blind Overcrowding:** Massive tourist influxes happen with no density alerts or capacity management.
+* **Broken Feedback Loop:** Hazard zones, infrastructure damage, and waste accumulation go unreported for weeks.
 
-### 2. Set up environment variables
-- Copy .env.example to .env and fill in your API keys
+## 💡 The Solution: See it. Know it. Report it.
+EcoTrail replaces fragmented systems with a single, comprehensive ecosystem for the conscious traveler.
 
-### 3. Frontend
-- cd frontend
-- npm install
-- npm run dev
-- Runs on http://localhost:5173
+### ✨ Core Features
 
-### 4. Backend
-- cd backend
-- python -m venv venv
-- venv\Scripts\activate
-- pip install -r requirements.txt
-- uvicorn main:app --reload --port 8000
-- Runs on http://localhost:8000
+#### 🗺️ 1. Live Safety Map
+A custom interactive map interface built to keep hikers aware of their immediate surroundings.
+* **Real-Time Overlays:** Live AQI data and weather metrics.
+* **Dynamic Hazard Zones:** Visual indicators for dangerous areas and trail blockages.
+* **Interactive Toggles:** Users can switch between safety, crowd density, and environmental impact layers.
 
-### 5. ML
-- cd ml
-- python -m venv venv
-- venv\Scripts\activate
-- pip install -r requirements.txt
+#### 🤖 2. EcoBot AI (Multi-Agent RAG Pipeline)
+A highly advanced, context-aware AI assistant designed to answer trail-specific questions without hallucinations.
+* **Powered by Google Gemini & Pinecone:** Utilizes a robust Vector Database for Retrieval-Augmented Generation (RAG).
+* **Multi-Agent Architecture:** A custom router classifies user intent to trigger specialized agents (Trail Safety, Eco-Policy, or Live Data).
+* **Instant Answers:** Provides grounded guidelines on local eco-rules and emergency protocols.
 
-### 6. RAG
-- cd rag
-- python -m venv venv
-- venv\Scripts\activate
-- pip install -r requirements.txt
+#### ♻️ 3. The Ecosystem
+* **One-Tap SOS:** Instantly pings local authorities with precise GPS coordinates, bypassing standard rural response delays.
+* **Gamified Leaderboard:** Rewards tourists with points for reporting trail hazards, clearing waste, and maintaining ecological hygiene.
+* **Community Impact Dashboard:** A public tracker showing total hazards resolved and trails cleaned by the EcoTrail community.
 
-## Ports
-- Frontend: 5173
-- Backend: 8000
 
-## Rules
-- Never push directly to main
-- Each person only touches their own folder
-- API contract is frozen after Hour 2 of hackathon
+
+%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20parent%3D%221%22%20style%3D%22whiteSpace%3Dwrap%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22(4)%20KNOWLEDGE%20SOURCES%20(Data%20%26amp%3B%20APIs)%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%22278%22%20width%3D%22280%22%20x%3D%222155%22%20y%3D%2220%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%223%22%20parent%3D%221%22%20style%3D%22whiteSpace%3Dwrap%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22(3)%20AGENTIC%20RAG%20PIPELINE%20(Google%20Gemini%20AI)%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%22493%22%20width%3D%221973%22%20x%3D%221326%22%20y%3D%22318%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%224%22%20parent%3D%221%22%20style%3D%22whiteSpace%3Dwrap%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22(2)%20BACKEND%20LAYER%20(Django)%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%22376%22%20width%3D%22245%22%20x%3D%22831%22%20y%3D%22447%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%225%22%20parent%3D%221%22%20style%3D%22whiteSpace%3Dwrap%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22(1)%20CLIENT%20LAYER%20(PWA)%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%22148%22%20width%3D%22561%22%20x%3D%2220%22%20y%3D%22548%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%226%22%20parent%3D%221%22%20style%3D%22rounded%3D1%3BarcSize%3D20%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22Tourist%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2254%22%20width%3D%2278%22%20x%3D%2245%22%20y%3D%22600%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%227%22%20parent%3D%221%22%20style%3D%22whiteSpace%3Dwrap%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22EcoTrail%20Web%20App%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2254%22%20width%3D%22183%22%20x%3D%22373%22%20y%3D%22600%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%228%22%20parent%3D%221%22%20style%3D%22whiteSpace%3Dwrap%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22Django%20Web%20Server%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2254%22%20width%3D%22195%22%20x%3D%22856%22%20y%3D%22600%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%229%22%20parent%3D%221%22%20style%3D%22rhombus%3BstrokeWidth%3D2%3BwhiteSpace%3Dwrap%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22Agent%20Router%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%22147%22%20width%3D%22147%22%20x%3D%221351%22%20y%3D%22425%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2210%22%20parent%3D%221%22%20style%3D%22rounded%3D1%3BarcSize%3D20%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22Trail%20Safety%20Agent%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2254%22%20width%3D%22156%22%20x%3D%221749%22%20y%3D%22383%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2211%22%20parent%3D%221%22%20style%3D%22rounded%3D1%3BarcSize%3D20%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22Eco-Policy%20Agent%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2254%22%20width%3D%22148%22%20x%3D%222685%22%20y%3D%22610%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2212%22%20parent%3D%221%22%20style%3D%22rounded%3D1%3BarcSize%3D20%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22Live%20Data%20Agent%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2254%22%20width%3D%22142%22%20x%3D%221756%22%20y%3D%22487%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2213%22%20parent%3D%221%22%20style%3D%22strokeWidth%3D2%3Bshape%3Dprocess%3BwhiteSpace%3Dwrap%3Bsize%3D0.04%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22Google%20Gemini%201.5%20Pro%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2239%22%20width%3D%22191%22%20x%3D%223083%22%20y%3D%22683%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2214%22%20parent%3D%221%22%20style%3D%22shape%3Dcylinder3%3BboundedLbl%3D1%3BbackgroundOutline%3D1%3Bsize%3D10%3BstrokeWidth%3D2%3BwhiteSpace%3Dwrap%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22Pinecone%20Vector%20DB%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2280%22%20width%3D%22154%22%20x%3D%222218%22%20y%3D%2255%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2215%22%20parent%3D%221%22%20style%3D%22rounded%3D1%3BarcSize%3D20%3BstrokeWidth%3D2%3BfillColor%3Dlight-dark(%23eeeeee%2C%231f2020)%3BstrokeColor%3Dlight-dark(%23999999%2C%23cccccc)%3BfontColor%3Dlight-dark(%23333333%2C%23cccccc)%3B%22%20value%3D%22External%20APIs%3A%20OpenWeather%2C%20Leaflet%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2278%22%20width%3D%22230%22%20x%3D%222180%22%20y%3D%22185%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2216%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%226%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D1%3BexitY%3D0.39%3BentryX%3D0%3BentryY%3D0.3%3Brounded%3D0%3B%22%20target%3D%227%22%20value%3D%221.%20Asks%20question%20in%20PWA%20chat%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%22248%22%20y%3D%22601%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2217%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%227%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D1%3BexitY%3D0.1%3BentryX%3D0%3BentryY%3D0.09%3Brounded%3D0%3B%22%20target%3D%228%22%20value%3D%222.%20API%20Request%20(POST)%20to%20Django%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%22581%22%20y%3D%22599%22%2F%3E%3CmxPoint%20x%3D%22831%22%20y%3D%22599%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2218%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%228%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D0.63%3BexitY%3D0.01%3BentryX%3D0%3BentryY%3D0.5%3Brounded%3D0%3B%22%20target%3D%229%22%20value%3D%223.%20Forwards%20raw%20query%20string%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%221076%22%20y%3D%22498%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2219%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%229%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D1.01%3BexitY%3D0.28%3BentryX%3D0%3BentryY%3D0.49%3Brounded%3D0%3B%22%20target%3D%2210%22%20value%3D%224a.%20Hazard%2FClosure%20question%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%221624%22%20y%3D%22410%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2220%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%229%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D1.01%3BexitY%3D0.73%3BentryX%3D0%3BentryY%3D0.18%3Brounded%3D0%3B%22%20target%3D%2211%22%20value%3D%224b.%20Eco-Rule%2FGuideline%20question%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%221624%22%20y%3D%22592%22%2F%3E%3CmxPoint%20x%3D%222560%22%20y%3D%22592%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2221%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%229%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D1.01%3BexitY%3D0.54%3BentryX%3D0%3BentryY%3D0.49%3Brounded%3D0%3B%22%20target%3D%2212%22%20value%3D%224c.%20Live%20weather%2FAQI%20question%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%221624%22%20y%3D%22514%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2222%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2210%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BstrokeWidth%3D3%3BexitX%3D1%3BexitY%3D0.07%3BentryX%3D0.36%3BentryY%3D1%3Brounded%3D0%3B%22%20target%3D%2214%22%20value%3D%225.%20Semantic%20Search%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222030%22%20y%3D%22350%22%2F%3E%3CmxPoint%20x%3D%222155%22%20y%3D%22350%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2223%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2211%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BstrokeWidth%3D3%3BexitX%3D0%3BexitY%3D0.71%3BentryX%3D0.9%3BentryY%3D1%3Brounded%3D0%3B%22%20target%3D%2214%22%20value%3D%225.%20Semantic%20Search%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222560%22%20y%3D%22668%22%2F%3E%3CmxPoint%20x%3D%222435%22%20y%3D%22187%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2224%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2212%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BstrokeWidth%3D3%3BexitX%3D1%3BexitY%3D0.06%3BentryX%3D0.39%3BentryY%3D1%3Brounded%3D0%3B%22%20target%3D%2215%22%20value%3D%225.%20Fetch%20Metrics%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222030%22%20y%3D%22446%22%2F%3E%3CmxPoint%20x%3D%222155%22%20y%3D%22446%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2225%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2214%22%20style%3D%22curved%3D1%3Bdashed%3D1%3BdashPattern%3D2%203%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D0.38%3BexitY%3D1%3BentryX%3D1%3BentryY%3D0.38%3Brounded%3D0%3B%22%20target%3D%2210%22%20value%3D%226.%20Grounded%20context%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222155%22%20y%3D%22394%22%2F%3E%3CmxPoint%20x%3D%222030%22%20y%3D%22394%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2226%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2214%22%20style%3D%22curved%3D1%3Bdashed%3D1%3BdashPattern%3D2%203%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D1%3BexitY%3D0.38%3BentryX%3D0%3BentryY%3D0.4%3Brounded%3D0%3B%22%20target%3D%2211%22%20value%3D%226.%20Grounded%20context%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222435%22%20y%3D%2278%22%2F%3E%3CmxPoint%20x%3D%222560%22%20y%3D%22624%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2227%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2215%22%20style%3D%22curved%3D1%3Bdashed%3D1%3BdashPattern%3D2%203%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D0.41%3BexitY%3D1%3BentryX%3D1%3BentryY%3D0.39%3Brounded%3D0%3B%22%20target%3D%2212%22%20value%3D%226.%20Live%20metrics%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222155%22%20y%3D%22498%22%2F%3E%3CmxPoint%20x%3D%222030%22%20y%3D%22498%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2228%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2210%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D0.79%3BexitY%3D0.99%3BentryX%3D0.37%3BentryY%3D0.01%3Brounded%3D0%3B%22%20target%3D%2213%22%20value%3D%227.%20Assemble%20Context%20%2B%20Prompt%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222030%22%20y%3D%22530%22%2F%3E%3CmxPoint%20x%3D%222958%22%20y%3D%22530%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2229%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2211%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D1%3BexitY%3D0.49%3BentryX%3D0.16%3BentryY%3D0.01%3Brounded%3D0%3B%22%20target%3D%2213%22%20value%3D%227.%20Assemble%20Context%20%2B%20Prompt%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222958%22%20y%3D%22637%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2230%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2212%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D0.68%3BexitY%3D0.99%3BentryX%3D0%3BentryY%3D0.74%3Brounded%3D0%3B%22%20target%3D%2213%22%20value%3D%227.%20Assemble%20Context%20%2B%20Prompt%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222030%22%20y%3D%22724%22%2F%3E%3CmxPoint%20x%3D%222958%22%20y%3D%22724%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2231%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%2213%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D0.15%3BexitY%3D1.01%3BentryX%3D0.62%3BentryY%3D1.01%3Brounded%3D0%3B%22%20target%3D%228%22%20value%3D%228.%20Synthesized%2C%20hallucination-free%20answer%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%222958%22%20y%3D%22768%22%2F%3E%3CmxPoint%20x%3D%221076%22%20y%3D%22768%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2232%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%228%22%20style%3D%22curved%3D1%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D0%3BexitY%3D0.92%3BentryX%3D1%3BentryY%3D0.91%3Brounded%3D0%3B%22%20target%3D%227%22%20value%3D%229.%20Display%20answer%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%22831%22%20y%3D%22655%22%2F%3E%3CmxPoint%20x%3D%22581%22%20y%3D%22655%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2233%22%20edge%3D%221%22%20parent%3D%221%22%20source%3D%227%22%20style%3D%22curved%3D1%3Bdashed%3D1%3BdashPattern%3D2%203%3BstartArrow%3Dnone%3BendArrow%3Dblock%3BexitX%3D0%3BexitY%3D0.73%3BentryX%3D1%3BentryY%3D0.63%3Brounded%3D0%3B%22%20target%3D%226%22%20value%3D%22%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CArray%20as%3D%22points%22%3E%3CmxPoint%20x%3D%22248%22%20y%3D%22655%22%2F%3E%3C%2FArray%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E
+
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+* HTML5, CSS3, JavaScript (Vanilla)
+* Progressive Web App (PWA) Architecture
+
+**Backend**
+* Python 
+* Django Framework
+
+**AI & Data Pipeline**
+* **LLM:** Google Gemini 1.5 Pro
+* **Vector Database:** Pinecone
+* **Architecture:** Multi-Agent Retrieval-Augmented Generation (RAG)
+
+**APIs & Mapping**
+* Leaflet Maps
+* OpenWeatherMap API
+
