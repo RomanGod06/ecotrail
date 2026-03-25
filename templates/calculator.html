@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrail | Carbon Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-white min-h-screen p-6 font-sans">
+
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-emerald-400 mb-2"><i class="fa-solid fa-leaf"></i> EcoTrail Carbon Calculator</h1>
+            <p class="text-slate-400">Estimate your trip's environmental impact and learn how to offset it.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700 space-y-6">
+                
+                <div>
+                    <h2 class="text-xl font-semibold text-emerald-300 mb-3"><i class="fa-solid fa-car-side"></i> Transport</h2>
+                    <div class="flex gap-4">
+                        <div class="flex-1">
+                            <label class="block text-sm text-slate-400 mb-1">Mode of Travel</label>
+                            <select id="transport-mode" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500" onchange="calculateFootprint()">
+                                <option value="0.12">Flight</option>
+                                <option value="0.2">Private Car / Taxi</option>
+                                <option value="0.05">Public Bus / Train</option>
+                            </select>
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-sm text-slate-400 mb-1">Distance (km)</label>
+                            <input type="number" id="transport-dist" value="0" min="0" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500" oninput="calculateFootprint()">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-semibold text-emerald-300 mb-3"><i class="fa-solid fa-bed"></i> Stay & Food</h2>
+                    <div class="flex gap-4 mb-4">
+                        <div class="flex-1">
+                            <label class="block text-sm text-slate-400 mb-1">Duration (Days/Nights)</label>
+                            <input type="number" id="stay-days" value="0" min="0" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500" oninput="calculateFootprint()">
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-sm text-slate-400 mb-1">Accommodation</label>
+                            <select id="stay-type" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500" onchange="calculateFootprint()">
+                                <option value="5">Hotel Room</option>
+                                <option value="2.5">Tent (with campfire)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-1">Primary Diet</label>
+                        <select id="diet-type" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500" onchange="calculateFootprint()">
+                            <option value="40.5">Meat-heavy (27 kg CO₂e/kg)</option>
+                            <option value="3">Vegetarian (2 kg CO₂e/kg)</option>
+                            <option value="2.25">Local/Vegan (1.5 kg CO₂e/kg)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-semibold text-emerald-300 mb-3"><i class="fa-solid fa-person-hiking"></i> Activities</h2>
+                    <div class="flex gap-4">
+                        <div class="flex-1">
+                            <label class="block text-sm text-slate-400 mb-1">Trekking Dist. (km)</label>
+                            <input type="number" id="trek-dist" value="0" min="0" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500" oninput="calculateFootprint()">
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-sm text-slate-400 mb-1">Sightseeing (Taxi Hrs)</label>
+                            <input type="number" id="sight-hrs" value="0" min="0" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-white outline-none focus:border-emerald-500" oninput="calculateFootprint()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-center bg-emerald-900/20 p-8 rounded-2xl border border-emerald-500/30 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+                
+                <h3 class="text-2xl font-bold text-slate-300 mb-2">Total Carbon Footprint</h3>
+                <div class="text-6xl font-black text-emerald-400 mb-4 drop-shadow-md">
+                    <span id="total-co2">0.0</span> <span class="text-2xl text-emerald-500 font-bold">kg CO₂e</span>
+                </div>
+                
+                <div class="mt-8 pt-8 border-t border-emerald-500/20">
+                    <h3 class="text-lg text-slate-300 mb-2">Offset Required</h3>
+                    <div class="text-4xl font-bold text-teal-400">
+                        <i class="fa-solid fa-tree mr-2"></i><span id="total-trees">0</span>
+                    </div>
+                    <p class="text-sm text-slate-400 mt-2">Trees needed to absorb this impact over a year.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateFootprint() {
+            // 1. Transport
+            const transportMode = parseFloat(document.getElementById('transport-mode').value);
+            const transportDist = parseFloat(document.getElementById('transport-dist').value) || 0;
+            const transportEmissions = transportDist * transportMode;
+
+            // 2. Accommodation & Diet
+            const days = parseFloat(document.getElementById('stay-days').value) || 0;
+            const stayType = parseFloat(document.getElementById('stay-type').value);
+            const dietType = parseFloat(document.getElementById('diet-type').value);
+            
+            const stayEmissions = days * stayType;
+            const foodEmissions = days * dietType;
+
+            // 3. Activities
+            const trekDist = parseFloat(document.getElementById('trek-dist').value) || 0;
+            const sightHrs = parseFloat(document.getElementById('sight-hrs').value) || 0;
+            
+            const trekEmissions = trekDist * 0.1;
+            const sightEmissions = sightHrs * 5; // Assuming ~25km/hr in a taxi at 0.2kg/km
+
+            // 4. Calculate Totals
+            const totalCO2 = transportEmissions + stayEmissions + foodEmissions + trekEmissions + sightEmissions;
+            const totalTrees = Math.ceil(totalCO2 / 21); // 21kg absorbed per tree per year
+
+            // 5. Update UI
+            document.getElementById('total-co2').innerText = totalCO2.toFixed(1);
+            document.getElementById('total-trees').innerText = totalTrees;
+        }
+    </script>
+</body>
+</html>

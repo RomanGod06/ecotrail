@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block title %}Admin Login | EcoTrail{% endblock %}
+
+{% block extra_css %}
+<style>
+  body { background: #060a07; color: #fff; font-family: 'Cabinet Grotesk', sans-serif; }
+  
+  .bg-paint {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 0%, rgba(29,75,48,.5) 0%, transparent 65%),
+      linear-gradient(175deg, #0b1410 0%, #080d09 40%, #050809 100%);
+  }
+
+  .login-container {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .glass-card {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(122, 173, 143, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+  
+  .lock-icon {
+    width: 48px; height: 48px;
+    background: rgba(122,173,143,.1);
+    border: 1px solid rgba(122,173,143,.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    color: #7aad8f;
+  }
+
+  h2 { font-family: 'Instrument Serif', serif; font-size: 36px; color: #fff; margin-bottom: 8px; }
+  p { color: rgba(255,255,255,0.5); font-size: 14px; margin-bottom: 30px; }
+  
+  .form-group { margin-bottom: 20px; text-align: left; }
+  label { display: block; font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+  
+  input[type="text"], input[type="password"] {
+    width: 100%; padding: 14px 16px; border-radius: 12px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    color: #fff; font-size: 15px; transition: border-color 0.3s;
+  }
+  input:focus { outline: none; border-color: #7aad8f; background: rgba(255,255,255,0.09); }
+  
+  .submit-btn {
+    width: 100%; padding: 14px; background: #7aad8f; color: #060a07;
+    border: none; border-radius: 12px; font-weight: 700; font-size: 16px;
+    cursor: pointer; transition: all 0.2s; margin-top: 10px;
+  }
+  .submit-btn:hover { background: #5a9a78; transform: translateY(-2px); }
+  
+  .error-msg {
+    color: #f87171; font-size: 13px; margin-bottom: 20px;
+    background: rgba(248,113,113,0.1); padding: 10px; border-radius: 8px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-paint"></div>
+
+<div class="login-container">
+  <div class="glass-card">
+    <div class="lock-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </div>
+    <h2>Admin Portal</h2>
+    <p>Sign in to update EcoTrail databases.</p>
+
+    {% if form.errors %}
+      <div class="error-msg">Incorrect username or password. Please try again.</div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" required autocomplete="username">
+      </div>
+      
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" required autocomplete="current-password">
+      </div>
+
+      <button type="submit" class="submit-btn">Secure Login</button>
+      
+      <input type="hidden" name="next" value="{{ next|default:'/api/add-hotel/' }}">
+    </form>
+  </div>
+</div>
+{% endblock %}

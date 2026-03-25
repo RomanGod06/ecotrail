@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}Data Entry | EcoTrail{% endblock %}
+
+{% block extra_css %}
+<style>
+  body { background: #060a07; color: #fff; font-family: 'Cabinet Grotesk', sans-serif; }
+  .entry-container { max-width: 600px; margin: 80px auto; padding: 20px; }
+  
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(122, 173, 143, 0.2);
+    border-radius: 16px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+  }
+  
+  h2 { font-family: 'Instrument Serif', serif; font-size: 36px; color: #7aad8f; margin-bottom: 20px; }
+  
+  .form-group { margin-bottom: 20px; }
+  label { display: block; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 8px; letter-spacing: 1px; text-transform: uppercase; }
+  
+  input[type="text"], input[type="number"] {
+    width: 100%; padding: 12px 16px; border-radius: 10px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    color: #fff; font-size: 15px; transition: border-color 0.3s;
+  }
+  input:focus { outline: none; border-color: #7aad8f; }
+  
+  .checkbox-group { display: flex; align-items: center; gap: 10px; }
+  input[type="checkbox"] { width: 18px; height: 18px; accent-color: #7aad8f; cursor: pointer; }
+  
+  .submit-btn {
+    width: 100%; padding: 14px; background: #7aad8f; color: #060a07;
+    border: none; border-radius: 10px; font-weight: 700; font-size: 16px;
+    cursor: pointer; transition: background 0.2s, transform 0.1s;
+    margin-top: 10px;
+  }
+  .submit-btn:hover { background: #5a9a78; }
+  .submit-btn:active { transform: scale(0.98); }
+
+  /* Notification Alerts */
+  .alert { padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
+  .alert-success { background: rgba(74, 222, 128, 0.1); border: 1px solid #4ade80; color: #4ade80; }
+  .alert-error { background: rgba(248, 113, 113, 0.1); border: 1px solid #f87171; color: #f87171; }
+
+  /* Recent Data Table */
+  .recent-table { width: 100%; margin-top: 40px; border-collapse: collapse; font-size: 14px; }
+  .recent-table th { text-align: left; padding: 10px; color: rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .recent-table td { padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); }
+  .status-badge { padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }
+  .bg-green { background: rgba(74,222,128,0.2); color: #4ade80; }
+  .bg-red { background: rgba(248,113,113,0.2); color: #f87171; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="entry-container">
+  
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="glass-card">
+    <h2>Add Hotel Data</h2>
+    <p style="color: rgba(255,255,255,0.5); margin-bottom: 24px; font-size: 14px;">
+      Populate the Supabase DB to give EcoBot live crowd data.
+    </p>
+
+    <form method="POST" action="{% url 'add_hotel_room' %}">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label>Hotel / Campsite Name</label>
+        <input type="text" name="hotel_name" placeholder="e.g., Snowline Cafe Camps" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Location (Trail Name)</label>
+        <input type="text" name="location" placeholder="e.g., Triund" required>
+      </div>
+      
+      <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+        <div style="flex: 1;">
+          <label>Total Rooms/Tents</label>
+          <input type="number" name="total_rooms" placeholder="e.g., 50" required min="1">
+        </div>
+        <div style="flex: 1;">
+          <label>Currently Available</label>
+          <input type="number" name="available_rooms" placeholder="e.g., 12" required min="0">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Current Average Price (₹)</label>
+        <input type="number" name="price" placeholder="e.g., 1500" required>
+      </div>
+
+      <button type="submit" class="submit-btn">Save to Database</button>
+    </form>
+  </div>
+
+  {% if recent_rooms %}
+  <table class="recent-table">
+    <thead>
+      <tr>
+        <th>Hotel Name</th>
+        <th>Location</th>
+        <th>Price</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for room in recent_rooms %}
+      <tr>
+        <td>{{ room.name }}</td>
+        <td>{{ room.location }}</td>
+        <td>₹{{ room.price }}</td>
+        <td>
+          {% if room.is_available %}
+            <span class="status-badge bg-green">Available</span>
+          {% else %}
+            <span class="status-badge bg-red">Booked</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+</div>
+{% endblock %}
