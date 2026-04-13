@@ -257,8 +257,9 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
 </footer>
 
 <div id="chat-wrap">
-  <a id="chat-fab" href="https://ecobot-cjzl.onrender.com/api/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-    
+ 
+
+  <button id="chat-fab" onclick="toggleChat()">
     <svg class="robot-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="botGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -274,28 +275,6 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
       <circle cx="64" cy="42" r="5" fill="#34d399"/>
       <path d="M42 50 Q50 54 58 50" stroke="#34d399" stroke-width="2" stroke-linecap="round" fill="none"/>
     </svg>
-    
-    <span id="chat-fab-text">ECOBOT</span>
-  </a>
-</div>
-
-  <button id="chat-fab" onclick="toggleChat()">
-    
-    <svg class="robot-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="botGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#10b981" /> <stop offset="100%" stop-color="#0ea5e9" /> </linearGradient>
-      </defs>
-      <line x1="50" y1="20" x2="50" y2="5" stroke="url(#botGrad)" stroke-width="4" stroke-linecap="round"/>
-      <circle cx="50" cy="5" r="4" fill="#0ea5e9"/>
-      <path d="M30 65 C25 85, 45 95, 50 95 C55 95, 75 85, 70 65 Z" fill="url(#botGrad)"/>
-      <rect x="15" y="20" width="70" height="45" rx="20" fill="url(#botGrad)"/>
-      <rect x="22" y="27" width="56" height="31" rx="12" fill="#0f172a"/>
-      <circle cx="36" cy="42" r="5" fill="#34d399"/>
-      <circle cx="64" cy="42" r="5" fill="#34d399"/>
-      <path d="M42 50 Q50 54 58 50" stroke="#34d399" stroke-width="2" stroke-linecap="round" fill="none"/>
-    </svg>
-    
     <span id="chat-fab-text">ECOBOT</span>
     <div class="chat-badge" id="chatBadge" style="display:none;">1</div>
   </button>
@@ -347,7 +326,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-
 {% block scripts %}{% endblock %}
 </body>
 </html>
