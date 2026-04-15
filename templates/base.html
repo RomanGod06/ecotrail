@@ -72,29 +72,13 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
 .foot-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap;gap:12px;max-width:1100px;margin:0 auto}
 .foot-bottom span{font-size:12px;color:rgba(255,255,255,.28)}
 
-/* ── CHATBOT PANEL ── */
-#chat-wrap{position:fixed;bottom:24px;right:32px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-#chat-panel{width:clamp(280px,90vw,340px);background:#fff;border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.15);overflow:hidden;display:none;transform-origin:bottom right; margin-bottom: 10px;}
-#chat-panel.open{display:block;animation:chatIn .35s cubic-bezier(.34,1.4,.64,1) both}
-.chat-hdr{background:var(--green);padding:16px 18px;display:flex;align-items:center;gap:12px}
-.chat-av{width:36px;height:36px;background:var(--sage);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.chat-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
-.chat-status{font-size:11px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:5px}
-.chat-msgs{padding:14px;max-height:220px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
-.msg{max-width:85%;font-size:13px;line-height:1.55;padding:9px 13px}
-.msg.bot{background:var(--cream);color:var(--green);border-radius:4px 12px 12px 12px}
-.msg.user{background:var(--green);color:#fff;align-self:flex-end;border-radius:12px 4px 12px 12px}
-.chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border)}
-.chat-input{flex:1;border:1px solid rgba(0,0,0,.1);border-radius:8px;padding:8px 12px;font-size:13px;font-family:'Cabinet Grotesk',sans-serif;outline:none;background:var(--cream)}
-.chat-input:focus{border-color:var(--sage)}
-.chat-send{width:34px;height:34px;background:var(--green);border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-
 /* ── "SUPERMAN" FLOATING ROBOT FAB ── */
+#chat-wrap{position:fixed;bottom:24px;right:32px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+
 #chat-fab {
-    /* REMOVE the circle and background */
     background: transparent;
     border: none;
-    box-shadow: none; /* Shadow moves to the SVG itself */
+    box-shadow: none; 
     padding: 0;
     cursor: pointer;
     display: flex;
@@ -102,28 +86,23 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Continuous Bouncing Animation */
     animation: floatBounce 3s ease-in-out infinite;
     outline: none;
+    text-decoration: none;
 }
-
-/* Hover effect targets the SVG inside */
 #chat-fab:hover .robot-svg {
     transform: scale(1.1);
-    filter: drop-shadow(0 15px 25px rgba(14, 165, 233, 0.4)); /* Glow increases on hover */
+    filter: drop-shadow(0 15px 25px rgba(14, 165, 233, 0.4)); 
 }
 #chat-fab:hover { animation-play-state: paused; }
 
-/* The SVG Robot Styling */
 .robot-svg {
     width: 75px; 
     height: 75px;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* The drop-shadow perfectly outlines the robot, giving the free-floating 3D effect */
     filter: drop-shadow(0 10px 15px rgba(26, 58, 42, 0.4));
 }
 
-/* The EcoBot Text below the robot */
 #chat-fab-text {
     font-size: 11px;
     font-weight: 900;
@@ -137,31 +116,11 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
     backdrop-filter: blur(4px);
 }
 
-/* Badge positioned at the top right of the robot head */
-.chat-badge {
-    position: absolute;
-    top: 0px;
-    right: 5px;
-    width: 18px;
-    height: 18px;
-    background: #e74c3c;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    color: #fff;
-    font-weight: 900;
-    z-index: 10;
-}
-
 /* GLOBAL ANIMATIONS & REVEALS */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
 .reveal.vis{opacity:1;transform:none}
 @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
-@keyframes chatIn{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:none}}
 @keyframes floatBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
@@ -256,10 +215,9 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
   </div>
 </footer>
 
+<!-- SINGLE ECOBOT LINK REDIRECT -->
 <div id="chat-wrap">
- 
-
-  <button id="chat-fab" onclick="toggleChat()">
+  <a id="chat-fab" href="https://ecobot-cjzl.onrender.com/api/" target="_blank" rel="noopener noreferrer">
     <svg class="robot-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="botGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -276,8 +234,7 @@ footer{background:#0f2318;padding:60px clamp(16px,5vw,80px) 32px;position:relati
       <path d="M42 50 Q50 54 58 50" stroke="#34d399" stroke-width="2" stroke-linecap="round" fill="none"/>
     </svg>
     <span id="chat-fab-text">ECOBOT</span>
-    <div class="chat-badge" id="chatBadge" style="display:none;">1</div>
-  </button>
+  </a>
 </div>
 
 <script>
@@ -289,43 +246,8 @@ function toggleMenu(){menuOpen=!menuOpen;document.getElementById('mobile-nav').c
 /* Scroll Reveal Observer */
 const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -30px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-/* Chatbot Logic */
-let chatOpen=false;
-function toggleChat(){
-  chatOpen=!chatOpen;
-  document.getElementById('chat-panel').classList.toggle('open',chatOpen);
-  if(chatOpen) document.getElementById('chatBadge').style.display='none';
-}
-
-function sendMsg(){
-  const input=document.getElementById('chatInput');
-  const msgs=document.getElementById('chatMsgs');
-  const text=input.value.trim();
-  if(!text)return;
-  const u=document.createElement('div');u.className='msg user';u.textContent=text;msgs.appendChild(u);
-  input.value='';msgs.scrollTop=msgs.scrollHeight;
-  setTimeout(()=>{
-    const b=document.createElement('div');b.className='msg bot';
-    b.textContent='Checking local knowledge for "'+text+'"… This connects to our Gemini RAG system with verified HP tourism data. 🌱';
-    msgs.appendChild(b);msgs.scrollTop=msgs.scrollHeight;
-  },850);
-}
-
-/* 🌐 Link Interceptor for #open-chatbot */
-document.addEventListener("DOMContentLoaded", function() {
-    if(window.location.hash === '#open-chatbot') {
-        setTimeout(toggleChat, 500); 
-        history.replaceState(null, null, ' '); 
-    }
-    document.querySelectorAll('a[href="#open-chatbot"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            if(!chatOpen) toggleChat(); 
-        });
-    });
-});
 </script>
+
 {% block scripts %}{% endblock %}
 </body>
 </html>
