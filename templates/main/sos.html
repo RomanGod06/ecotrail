@@ -60,9 +60,9 @@
       <p style="color: var(--stone); font-size: 16px;">If you are in immediate danger, trigger the SOS or contact authorities directly.</p>
     </div>
 
-    <button class="big-sos-btn reveal" onclick="alert('DEMO: GPS Coordinates (32.2432, 76.9821) and alert sent to nearest Forest Rangers and HP Disaster Management.')">
-      SOS
-    </button>
+    <button class="big-sos-btn reveal" id="sosBtn" onclick="triggerSOS()">
+  SOS
+</button>
 
     <div class="sos-grid">
       <div class="contact-card reveal">
@@ -102,4 +102,64 @@
 
   </div>
 </section>
-{% endblock %} 
+
+<script>
+function triggerSOS() {
+    const btn = document.getElementById('sosBtn');
+    
+    // 1. Change UI to show action
+    btn.innerHTML = "LOCATING... <i class='fa-solid fa-spinner fa-spin'></i>";
+    btn.disabled = true;
+    btn.style.background = "#fbbf24"; // Warning yellow
+
+    // 2. Check if device supports GPS
+    if (!navigator.geolocation) {
+        alert("🚨 EMERGENCY SIGNAL SENT");
+        resetSOSButton(btn);
+        return;
+    }
+
+    // 3. Grab the real hardware coordinates
+    navigator.geolocation.getCurrentPosition(async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        try {
+            // 4. Send to Django Backend
+            const response = await fetch('/api/sos/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken') // Reusing your existing cookie function!
+                },
+                body: JSON.stringify({ lat: lat, lon: lon })
+            });
+
+            const data = await response.json();
+
+            // 5. Success UI
+            btn.innerHTML = "SOS SENT ✓";
+            btn.style.background = "#dc2626"; // Danger red
+            alert(`🚨 EMERGENCY SIGNAL SENT!\n\nYour exact coordinates (${lat.toFixed(4)}, ${lon.toFixed(4)}) have been securely transmitted to the nearest Forest Ranger station.\n\nStatus: ${data.message}`);
+
+        } catch (error) {
+            console.error("SOS Fetch Error:", error);
+            alert("⚠️ Network failure. Please dial 112 immediately.");
+            resetSOSButton(btn);
+        }
+    }, (error) => {
+        alert("⚠️ Location access denied. We cannot send an SOS without GPS coordinates. Please dial 112.");
+        resetSOSButton(btn);
+    }, {
+        enableHighAccuracy: true, // Forces device to use GPS hardware, not just IP address
+        timeout: 10000 
+    });
+}
+
+function resetSOSButton(btn) {
+    btn.innerHTML = "SOS";
+    btn.disabled = false;
+    btn.style.background = ""; // Reset to default CSS
+}
+</script>
+{% endblock %}
