@@ -10,7 +10,7 @@ EcoTrail is a Progressive Web App (PWA) designed to protect both tourists and th
 ---
 
 ## 🚨 The Problem
-High-altitude tourism currently operates in the dark, leading to preventable accidents and severe ecological degradation:
+High-altitude tourism currently operates in the dark, leading to preventable accidents and severe ecological degradation which should be prevented:
 * **Zero Real-Time Safety:** Trails lack live data on landslide-prone zones and sudden weather hazards.
 * **Blind Overcrowding:** Massive tourist influxes happen with no density alerts or capacity management.
 * **Broken Feedback Loop:** Hazard zones, infrastructure damage, and waste accumulation go unreported for weeks.
@@ -144,4 +144,4 @@ graph LR
 **APIs & Mapping**
 * Leaflet Maps
 * OpenWeatherMap API
-
+a
